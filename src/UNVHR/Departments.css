@@ -1,0 +1,57 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.wrapper {
+  min-height: 85.5vh;
+}
+
+
+table{
+    text-align: center;
+    position: relative;
+    color: black;
+    border-radius: 2px;
+    margin: auto;
+    width: auto;
+}
+
+.option-button{
+    background:#f36e21;
+    border: 1px solid black;
+    border-collapse: collapse;
+    border-radius: 4px;
+    width: 100px;
+    color: white;
+    margin: 4px 2px;
+    opacity: 1;
+    transition: 0.3s;
+    box-shadow: 2px 2px 4px grey;
+}
+
+.empl{
+    text-align: center;
+    color: red;
+}
+.depTable th {
+    background: #f0eeec;;
+}
+
+.option-button:hover{
+    opacity: 0.6
+}
+
+tr{
+    height: 41px;
+    display: table;
+    box-shadow: 5px 5px 8px grey;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+th{
+    font-size: larger;
+}
+th, td{
+    width: 250px;
+}

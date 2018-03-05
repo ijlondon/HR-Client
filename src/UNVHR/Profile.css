@@ -1,0 +1,177 @@
+.wrapProfile{
+    min-height: 105vh;
+  }
+  
+
+.photoStyle{
+    width: 200px;
+    height: 200px;
+    margin: 20px;
+    margin-left: 220px;
+    float: left;
+
+}
+
+.headerStyle{
+    display: inline-block;
+  width: 800px;
+  padding: 5px;
+  padding-left: 25px;
+  text-align: left;
+  background-color: #f0eeec;
+  margin: auto;
+  margin-top: 20px;
+  border: 1px solid f0eeec;
+  box-shadow: 3px 3px gainsboro;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.infoCard{
+    display: inline-block;
+  width: 800px;
+  padding: 5px;
+  padding-left: 25px;
+  text-align: left;
+  background-color: white;
+  margin: auto;
+  margin-top: 20px;
+  border: 1px solid f0eeec;
+  box-shadow: 3px 3px gainsboro;
+  font-size: 20px;
+}
+
+.infoStyle{
+    margin-bottom: 15px;
+}
+
+.employeeCard{
+    margin-left: 5px !important;
+    display: inline-block;
+  width: 261.5px;
+  padding: 5px;
+  padding-left: 25px;
+  text-align: left;
+  background-color: white;
+  margin: auto;
+  margin-top: 20px;
+  border: 1px solid f0eeec;
+  box-shadow: 3px 3px gainsboro;
+  font-size: 20px;
+}
+
+.label{
+    display: inline-block;
+    float: left;
+    clear: left;
+    width: 120px;
+    text-align: left;
+ }
+ input{
+  display: inline-block;
+  
+ }
+
+ .inputField{
+    width: 400px;
+    height: 35px;
+    box-shadow: 0 3px 5px gainsboro;
+    border: 1px solid #f36e21;
+    border-radius: 5px;
+    text-align: Left;
+    font-size: 16px;
+    margin-left: 10px;
+    padding-left: 10px;
+    padding-right: 10px; 
+
+  }
+
+  .editButton{
+    padding: 5px;
+    height: 30px;
+    width: 70px;
+    background-color: #f36e21;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 8px;
+    -webkit-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    transition: background-color 0.5s;
+    cursor: pointer;
+    float: right;
+    margin: 5px;
+  }
+  
+  .editButton:hover{
+    background-color: gray;
+    color: white !important;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .changeButton{
+    padding: 5px;
+    height: 30px;
+    width: 70px;
+    background-color: #f36e21;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 8px;
+    -webkit-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    transition: background-color 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    display: block;
+  }
+  
+  .changeButton:hover{
+    background-color: gray;
+    color: white !important;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .alignMe{
+      margin-left: 440px;
+  }
+
+  .employeeName{
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+
+  }
+
+  .viewButton:hover{
+    background-color: gray;
+    color: white !important;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .viewButton{
+    padding: 5px;
+    height: 30px;
+    width: 150px;
+    background-color: #f36e21;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 8px;
+    -webkit-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    transition: background-color 0.5s;
+    cursor: pointer;
+    margin: auto;
+    margin-bottom: 15px;
+    display: block;
+  }
