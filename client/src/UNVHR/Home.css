@@ -1,0 +1,68 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.wrapper {
+  min-height: 80.5vh;
+}
+
+.welcomeText{
+  text-align: center;
+  font-size: 35px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.findCard{
+  display: block;
+  width: 500px;
+  padding: 15px;
+  text-align: center;
+  background-color: #f0eeec;
+  margin: auto;
+  border: 1px solid f0eeec;
+  box-shadow: 3px 3px gainsboro;
+}
+
+.droplistStyle{
+  margin: auto;
+  width: 350px;
+  text-align: Left;
+  font-size: 16px;
+  margin-top: 25px;
+}
+
+
+.Select-control {
+  border: 1px solid #f36e21;
+}
+
+.Select-placeholder{
+  color: black;
+}
+
+.searchButton{
+  margin-top: 25px;
+  padding: 10px;
+  height: 50px;
+  width: 140px;
+  background-color: #f36e21;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 22px;
+  border-radius: 8px;
+  -webkit-transition: background-color 0.5s;
+  -moz-transition: background-color 0.5s;
+  -o-transition: background-color 0.5s;
+  transition: background-color 0.5s;
+  cursor: pointer;
+}
+
+.searchButton:hover{
+  background-color: gray;
+  color: white !important;
+  text-decoration: none;
+  cursor: pointer;
+}
+

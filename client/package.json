@@ -1,0 +1,27 @@
+{
+  "name": "unversityhr",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6",
+    "framework7-react": "^0.9.3-2",
+    "install": "^0.10.4",
+    "material-ui": "^0.20.0",
+    "material-ui-search-bar": "^0.4.1",
+    "react": "^16.2.0",
+    "react-autobind": "^1.0.6",
+    "react-dom": "^16.2.0",
+    "react-router": "^3.2.0",
+    "react-scripts": "1.1.1",
+    "react-search-bar": "^2.2.0",
+    "react-select": "^1.2.1",
+    "react-transition-group": "^2.2.1",
+    "reactstrap": "^4.8.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
