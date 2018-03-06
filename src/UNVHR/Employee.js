@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { getUser } from './ApiConnector';
 import './Profile.css';
 
-export class Profile extends React.Component{
+export class Employee extends React.Component{
   constructor(props) {
     super(props)
     this.state = {
@@ -18,7 +18,7 @@ export class Profile extends React.Component{
 
   componentDidMount() {
     this.editButton = ReactDOM.findDOMNode(this.refs.editButton);
-    getUser('1')
+    getUser(this.props.params['employeeId'])
     .then(data => {
       let user = data.data;
       this.setState({user: user});
@@ -40,7 +40,7 @@ export class Profile extends React.Component{
               <div><img  className="photoStyle" src={require('./profile.png')} />
               </div>
               <div className="headerStyle" >
-                Your Personal Information
+                {this.state.user.firstName}'s Personal Information
                 <button className="editButton" onClick = {this.enableEdit}>
                   {this.state.buttonLabel}
                 </button>
@@ -69,7 +69,7 @@ export class Profile extends React.Component{
               </div>
               <div className="alignMe" >
                 <div className="headerStyle" >
-                  Your Work Information
+                  {this.state.user.firstName} Work Information
                 </div>
                 <div className="infoCard" >
                   <div className="infoStyle" > 
