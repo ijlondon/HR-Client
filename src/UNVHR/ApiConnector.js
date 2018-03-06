@@ -1,18 +1,26 @@
-export class ApiConnector {
-  constructor() {
-    this._apiRoot = 'http://localhost:8080/';
-  }
+const apiRoot = 'https://hr-system-api-professionals.herokuapp.com/'
 
-  makeApiGetRequest(endpoint, data) {
-    return fetch(this._apiRoot + endpoint, {
-      method: 'GET',
-      mode: 'no-cors'
-    });
-  }
+function makeApiGetRequest(endpoint) {
+  return fetch(apiRoot + endpoint)
+    .then(results=> { return results.json() });
+}
 
-  getUser(userId) {
-    const endpoint = 'user/' + userId;
-    const data = { };
-    return this.makeApiGetRequest(endpoint, data);
-  }
+export function getUser(userId) {
+  const endpoint = 'employee/' + userId;
+  return makeApiGetRequest(endpoint);
+}
+
+export function getDepartment(departmentId) {
+  const endpoint = 'department/' + departmentId;
+  return makeApiGetRequest(endpoint);
+}
+
+export function listDepartments() {
+  const endpoint = 'department';
+  return makeApiGetRequest(endpoint);
+}
+
+export function searchUser(query) {
+  const endpoint = 'user/search?toSearch=' + query;
+  return makeApiGetRequest(endpoint);
 }

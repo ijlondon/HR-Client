@@ -1,25 +1,6 @@
 import React from 'react';
 import './Departments.css';
-
-
-const departments = [
-    {
-        name: "Software Engineering",
-        noEmployees: 20,
-    },
-    {
-        name: "Computer Science",
-        noEmployees: 17,
-    },
-    {
-        name: "Computer Engineering",
-        noEmployees: 70,
-    },
-    {
-        name: "Biomedical Engineering",
-        noEmployees: 12,
-    }
-];
+import {listDepartments} from './ApiConnector';
 
 class DepartmentsRow extends React.Component {
     render() {
@@ -40,7 +21,22 @@ class DepartmentsRow extends React.Component {
 export class Departments extends React.Component{
     constructor(props){
         super(props);
+        this.state = {
+            departments: [],
+        }
     }
+    
+    componentDidMount() {
+        listDepartments()
+        .then(response => {
+            const departments = response.data.map(department => { return {
+                name: department.name,
+                noEmployees: department.workers.length
+            }});
+            this.setState({departments: departments})
+        });
+    }
+
     render(){
         return (
             <div className="wrapper" >
@@ -53,7 +49,7 @@ export class Departments extends React.Component{
                         <th>Number of Employees</th>
                         <th>Options</th>
                     </tr>
-                    <DepartmentsRow data={departments}/>
+                    <DepartmentsRow data={this.state.departments}/>
                     </tbody>
                 </table>
             </div>
