@@ -1,3 +1,9 @@
+# IntelliJ folder
+.idea
+
+# VS Code folder
+.vscode
+
 # Logs
 logs
 *.log
