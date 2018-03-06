@@ -1,5 +1,4 @@
-// const apiRoot = 'https://hr-system-api-professionals.herokuapp.com/'
-const apiRoot = 'http://localhost:8080/';
+const apiRoot = 'https://hr-system-api-professionals.herokuapp.com/'
 
 function makeApiGetRequest(endpoint) {
   return fetch(apiRoot + endpoint)
