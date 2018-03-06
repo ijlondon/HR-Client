@@ -1,39 +1,35 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import { getUser } from './ApiConnector';
 import './Profile.css';
-import ReactDOM from 'react-dom'
 
 export class Profile extends React.Component{
   constructor(props) {
     super(props)
     this.state = {
+      user: {
+        address: {}
+      },
       disabled: true,
       buttonLabel: "Edit" // inital state
     }
     this.enableEdit = this.enableEdit.bind(this);
-    this.state = {
-      user: {
-        firstName: '',
-        lastName: '',
-      },
-    };
   }
 
   componentDidMount() {
     this.editButton = ReactDOM.findDOMNode(this.refs.editButton);
-    fetch('http://localhost:8080/user/1')
-    .then(results => {
-      return results.json();
-    })
+    getUser('1')
     .then(data => {
-      let user = data;
+      let user = data.data;
       this.setState({user: user});
-      console.log("state", this.state.user);
+      console.log("state", this.state);
     });
   }
+
   enableEdit() {
     this.setState({
-    disabled: !this.state.disabled,
-    buttonLabel:"Save" // update it here
+      disabled: !this.state.disabled,
+      buttonLabel:"Save" // update it here
     })
   }
 
@@ -50,21 +46,25 @@ export class Profile extends React.Component{
                 </button>
               </div>
               <div className="infoCard" >
+              <div className="infoStyle" > 
+                  <label className="label" > First Name </label>
+                  <input className="inputField" type="text" name="fname" value={this.state.user.firstName} disabled = {(this.state.disabled)? "disabled" : ""}/> 
+                </div>
                 <div className="infoStyle" > 
-                  <label className="label" > Name </label>
-                  <input className="inputField" type="text" name="lname" placeholder="Dan Krutz" disabled = {(this.state.disabled)? "disabled" : ""}/> 
+                  <label className="label" > Last Name </label>
+                  <input className="inputField" type="text" name="lname" value={this.state.user.lastName} disabled = {(this.state.disabled)? "disabled" : ""}/> 
                 </div>
                 <div className="infoStyle" > 
                   <label className="label" > Address </label> 
-                  <input className="inputField" type="text" name="lname" placeholder="1 Lomb Memorial Dr, Rochester, NY 14623" disabled = {(this.state.disabled)? "disabled" : ""}/> 
+                  <input className="inputField" type="text" name="address" value={this.state.user.address.street} placeholder="1 Lomb Memorial Dr, Rochester, NY 14623" disabled = {(this.state.disabled)? "disabled" : ""}/> 
                 </div>
                 <div className="infoStyle" > 
                   <label className="label" > Email </label> 
-                  <input className="inputField" type="text" name="lname" placeholder="DanKrutz@krutz.com" disabled = {(this.state.disabled)? "disabled" : ""}/> 
+                  <input className="inputField" type="text" name="email" value={this.state.user.email} placeholder="DanKrutz@krutz.com" disabled = {(this.state.disabled)? "disabled" : ""}/> 
                 </div>
                 <div className="infoStyle" > 
                   <label className="label" > Phone </label>
-                  <input className="inputField" type="text" name="lname"  placeholder="(585)-123-4567" disabled = {(this.state.disabled)? "disabled" : ""}/> 
+                  <input className="inputField" type="text" name="phone"  value={this.state.user.telephone} placeholder="(585)-123-4567" disabled = {(this.state.disabled)? "disabled" : ""}/> 
                 </div>
               </div>
               <div className="alignMe" >
@@ -82,7 +82,7 @@ export class Profile extends React.Component{
                   </div>
                   <div className="infoStyle" > 
                     <label className="label" > Salary </label> 
-                    <input className="inputField" type="text" name="lname" placeholder="$1,000,000,000 per year" disabled /> 
+                    <input className="inputField" type="text" name="lname" value={this.state.user.salary} placeholder="$1,000,000,000 per year" disabled /> 
                   </div>
                 </div>
               </div>
