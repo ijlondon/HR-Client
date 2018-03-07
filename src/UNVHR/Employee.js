@@ -4,30 +4,12 @@ import { Link } from 'react-router';
 import { getUser, editEmployee } from './ApiConnector';
 import './Profile.css';
 
-const testEmployees = [
-  {
-    id: '1',
-    firstName: 'First',
-    lastName: 'Employee',
-  },
-  {
-    id: '2',
-    firstName: 'Second',
-    lastName: 'Employee',
-  },
-  {
-    id: '3',
-    firstName: 'Third',
-    lastName: 'Employee',
-  },
-]
-
 export class Employee extends React.Component{
   constructor(props) {
     super(props)
     this.state = {
       user: {},
-      employees: testEmployees,
+      employees: [],
       disabled: true,
       buttonLabel: "Edit" // inital state
     }
@@ -82,13 +64,27 @@ export class Employee extends React.Component{
   }
 
   componentDidMount() {
-    this.editButton = ReactDOM.findDOMNode(this.refs.editButton);
-    getUser(this.props.params['employeeId'])
-    .then(data => {
-      let user = data.data;
-      this.setState({user: user});
-      console.log("state", this.state);
-    });
+    this.editButton = ReactDOM.findDOMNode(this.refs.editButton);  
+    this.updateUser();  
+  }
+
+  componentDidUpdate() {
+    this.updateUser();
+  }
+
+  updateUser() {
+    if (!this.state.user.id || this.props.params['employeeId'] !== this.state.user.id) {
+      getUser(this.props.params['employeeId'])
+      .then(data => {
+        let user = data.data;
+        user.id = this.props.params['employeeId'];
+        this.setState({
+          user: user,
+          employees: user.workers,
+        });
+        console.log("state", this.state);
+      });
+    }
   }
 
   toggleEdit() {
