@@ -13,11 +13,11 @@ export class Home extends React.Component {
     this.state = {
       departments: [],
       currentDepartment: null,
-      value: null,
+      employees: [],
+      currentEmployee: null,
     }
-    this.onChange = this.onChange.bind(this)
-
-
+    this.onDepartmentChange = this.onDepartmentChange.bind(this)
+    this.onEmployeeChange = this.onEmployeeChange.bind(this)
   }
 
   componentDidMount() {
@@ -36,10 +36,19 @@ export class Home extends React.Component {
     });
   }
 
-  onChange(value) {
-		this.setState(value)
+  onDepartmentChange(value) {
+		this.setState({
+      currentDepartment: value,
+      employees: value.employees
+    })
 	}
   
+  onEmployeeChange(value) {
+    this.setState({
+      currentEmployee: value
+    });
+  }
+
   render(){
     return (
         <div className="wrapper" >
@@ -49,13 +58,15 @@ export class Home extends React.Component {
               <Select className="droplistStyle"
                  placeholder = "Choose a Department"
                  options={this.state.departments}
-                 onChange={this.onChange}
-                 value={this.state.value}
+                 onChange={this.onDepartmentChange}
+                 value={this.state.currentDepartment}
 
               /> 
               <Select className="droplistStyle"
                  placeholder = "Choose Employee Name"
-                 options={this.state.currentDepartment ? this.state.currentDepartment.employees : []}
+                 options={this.state.employees}
+                 onChange={this.onEmployeeChange}
+                 value={this.state.currentEmployee}
               /> 
 
               <button className="searchButton" >
