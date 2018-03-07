@@ -1,19 +1,84 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { getUser } from './ApiConnector';
+import { Link } from 'react-router';
+import { getUser, editEmployee } from './ApiConnector';
 import './Profile.css';
+
+const testEmployees = [
+  {
+    id: '1',
+    firstName: 'First',
+    lastName: 'Employee',
+  },
+  {
+    id: '2',
+    firstName: 'Second',
+    lastName: 'Employee',
+  },
+  {
+    id: '3',
+    firstName: 'Third',
+    lastName: 'Employee',
+  },
+]
 
 export class Employee extends React.Component{
   constructor(props) {
     super(props)
     this.state = {
-      user: {
-        address: {}
-      },
+      user: {},
+      employees: testEmployees,
       disabled: true,
       buttonLabel: "Edit" // inital state
     }
-    this.enableEdit = this.enableEdit.bind(this);
+
+    this.personalFields = [
+      {
+        label: 'First Name',
+        field: 'firstName',
+      },
+      {
+        label: 'Last Name',
+        field: 'lastName',
+      },
+      {
+        label: 'Email',
+        field: 'email',
+      },
+      {
+        label: 'Phone',
+        field: 'telephone',
+      },
+    ];
+    
+    this.workFields = [
+      {
+        label: 'Job Title',
+        field: 'jobTitle',
+      },
+      {
+        label: 'Department',
+        field: 'department',
+      },
+      {
+        label: 'Salary',
+        field: 'salary',
+      },
+    ];
+
+    this.toggleEdit = this.toggleEdit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    const user = this.state.user;
+    user[name] = value;
+
+    this.setState({ user: user });
   }
 
   componentDidMount() {
@@ -26,11 +91,15 @@ export class Employee extends React.Component{
     });
   }
 
-  enableEdit() {
+  toggleEdit() {
+    if (!this.state.disabled) {
+      editEmployee(this.state.user)
+      .then(response => console.log(response));
+    }
     this.setState({
       disabled: !this.state.disabled,
-      buttonLabel:"Save" // update it here
-    })
+      buttonLabel: !this.state.disabled ? "Edit": "Save" // update it here
+    });
   }
 
   render(){
@@ -41,49 +110,29 @@ export class Employee extends React.Component{
               </div>
               <div className="headerStyle" >
                 {this.state.user.firstName}'s Personal Information
-                <button className="editButton" onClick = {this.enableEdit}>
+                <button className="editButton" onClick = {this.toggleEdit}>
                   {this.state.buttonLabel}
                 </button>
               </div>
               <div className="infoCard" >
-              <div className="infoStyle" > 
-                  <label className="label" > First Name </label>
-                  <input className="inputField" type="text" name="fname" value={this.state.user.firstName} disabled = {(this.state.disabled)? "disabled" : ""}/> 
-                </div>
-                <div className="infoStyle" > 
-                  <label className="label" > Last Name </label>
-                  <input className="inputField" type="text" name="lname" value={this.state.user.lastName} disabled = {(this.state.disabled)? "disabled" : ""}/> 
-                </div>
-                <div className="infoStyle" > 
-                  <label className="label" > Address </label> 
-                  <input className="inputField" type="text" name="address" value={this.state.user.address.street} placeholder="1 Lomb Memorial Dr, Rochester, NY 14623" disabled = {(this.state.disabled)? "disabled" : ""}/> 
-                </div>
-                <div className="infoStyle" > 
-                  <label className="label" > Email </label> 
-                  <input className="inputField" type="text" name="email" value={this.state.user.email} placeholder="DanKrutz@krutz.com" disabled = {(this.state.disabled)? "disabled" : ""}/> 
-                </div>
-                <div className="infoStyle" > 
-                  <label className="label" > Phone </label>
-                  <input className="inputField" type="text" name="phone"  value={this.state.user.telephone} placeholder="(585)-123-4567" disabled = {(this.state.disabled)? "disabled" : ""}/> 
-                </div>
+                {this.personalFields.map(field => { return(
+                  <div className="infoStyle" >
+                    <label className="label" > {field.label} </label>
+                    <input className="inputField" type="text" name={field.field} value={this.state.user[field.field]} disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/> 
+                  </div>
+                )})}
               </div>
               <div className="alignMe" >
                 <div className="headerStyle" >
-                  {this.state.user.firstName} Work Information
+                  {this.state.user.firstName}'s Work Information
                 </div>
                 <div className="infoCard" >
-                  <div className="infoStyle" > 
-                    <label className="label" > Job Title </label>
-                    <input className="inputField" type="text" name="lname" placeholder="Assistant Professor" disabled /> 
+                {this.workFields.map(field => { return(
+                  <div className="infoStyle" >
+                    <label className="label" > {field.label} </label>
+                    <input className="inputField" type="text" name={field.field} value={this.state.user[field.field]} disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/> 
                   </div>
-                  <div className="infoStyle" > 
-                    <label className="label" > Department </label> 
-                    <input className="inputField" type="text" name="lname" placeholder="Software Engineering" disabled /> 
-                  </div>
-                  <div className="infoStyle" > 
-                    <label className="label" > Salary </label> 
-                    <input className="inputField" type="text" name="lname" value={this.state.user.salary} placeholder="$1,000,000,000 per year" disabled /> 
-                  </div>
+                )})}
                 </div>
               </div>
               <div className="alignMe" >
@@ -91,31 +140,21 @@ export class Employee extends React.Component{
                   Employees
                 </div>
                 <div className="infoCard">
-                  <div className="employeeCard" >
-                    <img  style={{width:'120px', height:'120px', margin: 'auto',  display:'block'}} src={require('./profile.png')} />
-                    <p className="employeeName" >Andy Meneely</p>
-                    <button className="viewButton">
-                      View Profile
-                    </button>
-                  </div>
-                  <div className="employeeCard" >
-                    <img  style={{width:'120px', height:'120px', margin: 'auto',  display:'block'}} src={require('./profile.png')} />
-                    <p className="employeeName" >Andy Meneely</p>
-                    <button className="viewButton">
-                      View Profile
-                    </button>
-                  </div>
-                  <div className="employeeCard" >
-                    <img  style={{width:'120px', height:'120px', margin: 'auto',  display:'block'}} src={require('./profile.png')} />
-                    <p className="employeeName" >Andy Meneely</p>
-                    <button className="viewButton">
-                      View Profile
-                    </button>
-                  </div>
+                  {this.state.employees.map(employee => { return(
+                    <div className="employeeCard" >
+                      <img className="employeeAvatar" src={require('./profile.png')} />
+                      <p className="employeeName" >{employee.firstName} {employee.lastName}</p>
+                      <Link to={`/Employee/${employee.id}`}>
+                        <button className="viewButton">
+                          View Profile
+                        </button>
+                      </Link>
+                    </div>
+                  )})}
                 </div>
               </div>
             </div>
           </div>
     );
   }
-};
+}

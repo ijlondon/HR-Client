@@ -4,7 +4,7 @@ import {Router, Route, browserHistory, IndexRoute} from 'react-router';
 import {Root} from "./UNVHR/Root";
 import {Home} from "./UNVHR/Home";
 import {Profile} from "./UNVHR/Profile";
-import {Employee} from "./UNVHR/Employee/Employee";
+import {Employee} from "./UNVHR/Employee";
 import {Departments} from "./UNVHR/Departments";
 
 class App extends React.Component{
