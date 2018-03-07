@@ -24,3 +24,23 @@ export function searchUser(query) {
   const endpoint = 'user/search?toSearch=' + query;
   return makeApiGetRequest(endpoint);
 }
+
+function makeApiPostRequest(endpoint, body) {
+  const url = apiRoot + endpoint;
+  const init = {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body)
+  };
+
+  return fetch(url, init)
+    .then(results => { return results.json() });
+}
+
+export function editEmployee(employee) {
+  const endpoint = 'employee/' + employee.id + '/edit';
+  return makeApiPostRequest(endpoint, employee);
+}

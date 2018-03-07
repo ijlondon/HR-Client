@@ -90,29 +90,28 @@ export class Profile extends React.Component{
                 <div className="headerStyle" >
                   Employees that report to you
                 </div>
-                <div className="employeeCard" >
-                <div><img  style={{width:'120px', height:'120px', margin: 'auto',  display:'block'}} src={require('./profile.png')} />
-                <p className="employeeName" >Andy Meneely</p>
-                <button className="viewButton">
-                  View Profile
-                </button>
-                </div>
-                </div>
-                <div className="employeeCard" >
-                <div><img  style={{width:'120px', height:'120px', margin: 'auto',  display:'block'}} src={require('./profile.png')} />
-                <p className="employeeName" >Andy Meneely</p>
-                <button className="viewButton">
-                  View Profile
-                </button>
-                </div>
-                </div>
-                <div className="employeeCard" >
-                <div><img  style={{width:'120px', height:'120px', margin: 'auto',  display:'block'}} src={require('./profile.png')} />
-                <p className="employeeName" >Andy Meneely</p>
-                <button className="viewButton">
-                  View Profile
-                </button>
-                </div>
+                <div className="infoCard">
+                  <div className="employeeCard" >
+                    <img  style={{width:'120px', height:'120px', margin: 'auto',  display:'block'}} src={require('./profile.png')} />
+                    <p className="employeeName" >Andy Meneely</p>
+                    <button className="viewButton">
+                      View Profile
+                    </button>
+                  </div>
+                  <div className="employeeCard" >
+                    <img  style={{width:'120px', height:'120px', margin: 'auto',  display:'block'}} src={require('./profile.png')} />
+                    <p className="employeeName" >Andy Meneely</p>
+                    <button className="viewButton">
+                      View Profile
+                    </button>
+                  </div>
+                  <div className="employeeCard" >
+                    <img  style={{width:'120px', height:'120px', margin: 'auto',  display:'block'}} src={require('./profile.png')} />
+                    <p className="employeeName" >Andy Meneely</p>
+                    <button className="viewButton">
+                      View Profile
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

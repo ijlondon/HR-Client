@@ -43,7 +43,7 @@ import {SearchBox} from './SearchBox'
 
             <NavbarBrand href="/Home">
                 <img src={logo} style={{width:60, marginTop: -7, padding:'5px'}} />
-                Human resources
+                Human Resources 
             </NavbarBrand>
 
             <Collapse isOpen={this.state.isOpen} navbar>
