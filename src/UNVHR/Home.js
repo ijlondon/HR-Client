@@ -13,7 +13,11 @@ export class Home extends React.Component {
     this.state = {
       departments: [],
       currentDepartment: null,
+      value: null,
     }
+    this.onChange = this.onChange.bind(this)
+
+
   }
 
   componentDidMount() {
@@ -32,6 +36,10 @@ export class Home extends React.Component {
     });
   }
 
+  onChange(value) {
+		this.setState(value)
+	}
+  
   render(){
     return (
         <div className="wrapper" >
@@ -41,6 +49,9 @@ export class Home extends React.Component {
               <Select className="droplistStyle"
                  placeholder = "Choose a Department"
                  options={this.state.departments}
+                 onChange={this.onChange}
+                 value={this.state.value}
+
               /> 
               <Select className="droplistStyle"
                  placeholder = "Choose Employee Name"

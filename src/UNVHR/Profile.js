@@ -88,7 +88,7 @@ export class Profile extends React.Component{
               </div>
               <div className="alignMe" >
                 <div className="headerStyle" >
-                  Your Work Information
+                  Employees that report to you
                 </div>
                 <div className="employeeCard" >
                 <div><img  style={{width:'120px', height:'120px', margin: 'auto',  display:'block'}} src={require('./profile.png')} />

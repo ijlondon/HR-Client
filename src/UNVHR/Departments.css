@@ -2,7 +2,7 @@ html, body {
   height: 100%;
   margin: 0;
 }
-.wrapper {
+.DepWrapper {
   min-height: 85.5vh;
 }
 
@@ -18,7 +18,7 @@ table{
 
 .option-button{
     background:#f36e21;
-    border: 1px solid black;
+    border: 1px solid #f36e21;
     border-collapse: collapse;
     border-radius: 4px;
     width: 100px;
@@ -26,7 +26,14 @@ table{
     margin: 4px 2px;
     opacity: 1;
     transition: 0.3s;
-    box-shadow: 2px 2px 4px grey;
+}
+
+.option-button:hover{
+    background-color: gray;
+    border: 1px solid gray;
+    color: white !important;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .empl{
@@ -37,14 +44,12 @@ table{
     background: #f0eeec;;
 }
 
-.option-button:hover{
-    opacity: 0.6
-}
+
 
 tr{
     height: 41px;
     display: table;
-    box-shadow: 5px 5px 8px grey;
+    box-shadow: 3px 3px gainsboro;
     border-radius: 8px;
     margin-bottom: 25px;
 }
