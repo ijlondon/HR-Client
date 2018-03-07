@@ -39,7 +39,7 @@ export class Departments extends React.Component{
 
     render(){
         return (
-            <div className="wrapper" >
+            <div className="DepWrapper" >
                 <br/>
                 <br/>
                 <table className="depTable">

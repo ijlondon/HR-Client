@@ -88,7 +88,7 @@ export class Profile extends React.Component{
               </div>
               <div className="alignMe" >
                 <div className="headerStyle" >
-                  Employees
+                  Employees that report to you
                 </div>
                 <div className="infoCard">
                   <div className="employeeCard" >

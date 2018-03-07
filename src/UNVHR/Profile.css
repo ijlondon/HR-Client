@@ -1,5 +1,5 @@
 .wrapProfile{
-    min-height: 105vh;
+    min-height: 109vh;
   }
   
 
@@ -13,7 +13,7 @@
 }
 
 .headerStyle{
-    display: inline-block;
+  display: inline-block;
   width: 800px;
   padding: 5px;
   padding-left: 25px;
