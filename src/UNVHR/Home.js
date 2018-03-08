@@ -3,6 +3,7 @@ import React from 'react';
 import {SearchBox} from './SearchBox'
 import {listDepartments} from './ApiConnector';
 import Select from 'react-select';
+import { Link } from 'react-router';
 import 'react-select/dist/react-select.css';
 import './Home.css';
 
@@ -67,12 +68,14 @@ export class Home extends React.Component {
                  options={this.state.employees}
                  onChange={this.onEmployeeChange}
                  value={this.state.currentEmployee}
-              /> 
+              />
 
-              <button className="searchButton" >
-                Search
-              </button>
-
+              {/* If an employee is selected, this should link to their profile. Otherwise it'll link to the home page */}
+              <Link to={this.state.currentEmployee ? `/Employee/${this.state.currentEmployee.value}` :  '/Home'}>
+                <button className="searchButton" disabled={this.state.currentEmployee ? '' : 'disabled'}>
+                  View Profile
+                </button>
+              </Link>
             </div>
         </div>
              

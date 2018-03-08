@@ -77,7 +77,6 @@ export class Employee extends React.Component{
       getUser(this.props.params['employeeId'])
       .then(data => {
         let user = data.data;
-        user.id = this.props.params['employeeId']; // TODO: Remove this for R2
         this.setState({
           user: user,
           employees: user.workers,
