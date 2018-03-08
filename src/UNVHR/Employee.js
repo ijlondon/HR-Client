@@ -32,7 +32,7 @@ export class Employee extends React.Component{
         field: 'telephone',
       },
     ];
-    
+
     this.workFields = [
       {
         label: 'Job Title',
@@ -64,8 +64,8 @@ export class Employee extends React.Component{
   }
 
   componentDidMount() {
-    this.editButton = ReactDOM.findDOMNode(this.refs.editButton);  
-    this.updateUser();  
+    this.editButton = ReactDOM.findDOMNode(this.refs.editButton);
+    this.updateUser();
   }
 
   componentDidUpdate() {
@@ -105,7 +105,7 @@ export class Employee extends React.Component{
               <div><img  className="photoStyle" src={require('./profile.png')} />
               </div>
               <div className="headerStyle" >
-                {this.state.user.firstName}'s Personal Information
+                {this.state.user.firstName + "'s Personal Information" }
                 <button className="editButton" onClick = {this.toggleEdit}>
                   {this.state.buttonLabel}
                 </button>
@@ -114,19 +114,19 @@ export class Employee extends React.Component{
                 {this.personalFields.map(field => { return(
                   <div className="infoStyle" >
                     <label className="label" > {field.label} </label>
-                    <input className="inputField" type="text" name={field.field} value={this.state.user[field.field]} disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/> 
+                    <input className="inputField" type="text" name={field.field} value={this.state.user[field.field]} disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/>
                   </div>
                 )})}
               </div>
               <div className="alignMe" >
                 <div className="headerStyle" >
-                  {this.state.user.firstName}'s Work Information
+                  {this.state.user.firstName + "'s Work Information"}
                 </div>
                 <div className="infoCard" >
                 {this.workFields.map(field => { return(
                   <div className="infoStyle" >
                     <label className="label" > {field.label} </label>
-                    <input className="inputField" type="text" name={field.field} value={this.state.user[field.field]} disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/> 
+                    <input className="inputField" type="text" name={field.field} value={this.state.user[field.field]} disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/>
                   </div>
                 )})}
                 </div>
