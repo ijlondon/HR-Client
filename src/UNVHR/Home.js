@@ -1,9 +1,8 @@
 import React from 'react';
 
-import {SearchBox} from './SearchBox'
 import {listDepartments} from './ApiConnector';
 import Select from 'react-select';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import 'react-select/dist/react-select.css';
 import './Home.css';
 
@@ -17,6 +16,7 @@ export class Home extends React.Component {
       employees: [],
       currentEmployee: null,
     }
+
     this.onDepartmentChange = this.onDepartmentChange.bind(this)
     this.onEmployeeChange = this.onEmployeeChange.bind(this)
   }
@@ -24,20 +24,31 @@ export class Home extends React.Component {
   componentDidMount() {
     listDepartments()
     .then(response => {
-      const departments = response.data.map((department, index) => { return {
-        label: department.name,
-        value: index,
-        employees: department.workers.map(worker => { return {
+      const departments = response.data.map((department, index) => {
+        const label = department.name;
+        const value = index;
+        
+        // Populate the displayed employees in the department
+        let employees = department.workers.map(worker => { return {
           label: worker.lastName + ', ' + worker.firstName,
           value: worker.id
-        }})
-      }});
+        }});
+
+        // Include the head in the department
+        employees.unshift({
+          label: department.head.lastName + ', ' + department.head.firstName,
+          value: department.head.id
+        });
+
+        return { label, value, employees }
+      });
       this.setState({ departments: departments });
       console.log("state", this.state);
     });
   }
 
   onDepartmentChange(value) {
+    // Update the displayed employee list
 		this.setState({
       currentDepartment: value,
       employees: value.employees
