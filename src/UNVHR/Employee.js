@@ -73,7 +73,8 @@ export class Employee extends React.Component{
   }
 
   updateUser() {
-    if (!this.state.user.id || this.props.params['employeeId'] !== this.state.user.id.toString()) {
+    // If no user is loaded or the wrong user is loaded, get the correct user
+    if ((!this.state.user.id && this.state.user.id != 0) || this.props.params['employeeId'] !== this.state.user.id.toString()) {
       getUser(this.props.params['employeeId'])
       .then(data => {
         let user = data.data;
