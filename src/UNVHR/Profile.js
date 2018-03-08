@@ -28,12 +28,26 @@ export class Profile extends React.Component{
   }
 
   getSalary() {
-    fetch('https://data.ny.gov/resource/tn4j-d3nf.json?area=36&occupational_title=Computer Programmers'
-    ).then( result => {
+    let user = this.state.user
+    // Uncomment line below for working example
+    // user.jobTitle = "Computer Programmers"
+    var url = 'https://data.ny.gov/resource/tn4j-d3nf.json?area=36&occupational_title=' + user.jobTitle
+    // If user has a null jobTitle, allow html placeholder to fill instead of API
+    if (user.jobTitle == null) {
+      return;
+    }
+    fetch(url).then( result => {
       return result.json();
     }).then( res => {
-        let user = this.state.user
-        user.salary = res[0].mean
+        var sal = 1000000
+        // If API returns successfully, overwrite default value with result
+        if (res.length != 0) {
+          sal = Number(res[0].mean);
+        }
+        // Format salary to be readable
+        sal = sal.toLocaleString()
+        sal = "$" + sal + ".00"
+        user.salary = sal
         console.log(res)
         this.setState({ user: user })
       });
@@ -95,9 +109,9 @@ export class Profile extends React.Component{
                   </div>
                   <div className="infoStyle" >
                     <label className="label" > Salary </label>
-                    <input className="inputField" type="text" name="lname" value={this.state.user.salary} placeholder="$1,000,000,000 per year" disabled />
+                    <input className="inputField" type="text" name="lname" value={this.state.user.salary} placeholder="$1,000,000.00" disabled />
                   </div>
-                  <a href='https://www.glassdoor.com/index.htm'>powered by <img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search' /></a>
+                  <a href="https://www.its.ny.gov">powered by <img src="https://data.ny.gov/api/assets/24867D9C-004D-4A57-80CA-6757C009D140"></img></a>
                 </div>
               </div>
               <div className="alignMe" >
