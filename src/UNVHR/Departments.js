@@ -11,10 +11,9 @@ class DepartmentsRow extends React.Component {
     super(props)
     this.state = {
       contenteditable: true,
-        
       buttonLabel: "Edit" // inital state
     }
-    this.enableEdit = this.enableEdit.bind(this);
+    this.toggleEdit = this.toggleEdit.bind(this);
   }
 
   componentDidMount() {
@@ -22,10 +21,10 @@ class DepartmentsRow extends React.Component {
   }
   
   
-  enableEdit() {
+  toggleEdit() {
     this.setState({
       contenteditable: !this.state.contenteditable,
-      buttonLabel:"Save" // update it here
+      buttonLabel: this.state.contenteditable ? "Save" : "Edit" // update it here
     })
   }
     render() {
@@ -36,9 +35,9 @@ class DepartmentsRow extends React.Component {
         return ( data.map((data) =>
                 <tr>
                     <td contenteditable = {(this.state.contenteditable)? "contenteditable" : ""} key={data.name}>{data.name}</td>
-                    <td contenteditable = {(this.state.contenteditable)? "contenteditable" : ""} key={data.head}>{data.headFirst}{" "}{data.headLast}</td>
+                    <td key={data.head}>{data.headFirst}{" "}{data.headLast}</td>
                     <td key={data.noEmployees} className="empl">{data.noEmployees}</td>
-                    <td><button className="option-button" >View</button> <button className="option-button" onClick = {this.enableEdit}>{this.state.buttonLabel} </button></td>
+                    <td><button className="option-button" >View</button> <button className="option-button" onClick = {this.toggleEdit}>{this.state.buttonLabel} </button></td>
                 </tr>)
         );
     }
@@ -83,7 +82,6 @@ export class Departments extends React.Component{
                     </tbody>
                 </table>
             </div>
-
         );
     }
 }
