@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Select from 'react-select';
 import { Link } from 'react-router';
-import { getUser, editEmployee } from './ApiConnector';
+import { getUser, editEmployee, listDepartments} from './ApiConnector';
 import './Profile.css';
 
 export class Employee extends React.Component{
   constructor(props) {
     super(props)
     this.state = {
+      departments: [],
       user: {},
       employees: [],
       disabled: true,
@@ -32,7 +34,7 @@ export class Employee extends React.Component{
         field: 'telephone',
       },
     ];
-    
+
     this.workFields = [
       {
         label: 'Job Title',
@@ -64,8 +66,19 @@ export class Employee extends React.Component{
   }
 
   componentDidMount() {
-    this.editButton = ReactDOM.findDOMNode(this.refs.editButton);  
-    this.updateUser();  
+    this.editButton = ReactDOM.findDOMNode(this.refs.editButton);
+
+    listDepartments()
+    .then(response => {
+      const departments = response.data.map((department, index) => { return {
+        label: department.name,
+        value: index
+      }});
+      this.setState({ departments: departments });
+      console.log("state", this.state);
+    });
+
+    this.updateUser();
   }
 
   componentDidUpdate() {
@@ -102,10 +115,10 @@ export class Employee extends React.Component{
     return (
         <div className="wrapProfile" >
             <div>
-              <div><img  className="photoStyle" src={require('./profile.png')} />
+              <div><img className="photoStyle" src={require('./profile.png')} />
               </div>
               <div className="headerStyle" >
-                {this.state.user.firstName}'s Personal Information
+                {this.state.user.firstName + "'s Personal Information" }
                 <button className="editButton" onClick = {this.toggleEdit}>
                   {this.state.buttonLabel}
                 </button>
@@ -114,21 +127,33 @@ export class Employee extends React.Component{
                 {this.personalFields.map(field => { return(
                   <div className="infoStyle" >
                     <label className="label" > {field.label} </label>
-                    <input className="inputField" type="text" name={field.field} value={this.state.user[field.field]} disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/> 
+                    <input className="inputField" type="text" name={field.field} value={this.state.user[field.field]} disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/>
                   </div>
                 )})}
               </div>
               <div className="alignMe" >
                 <div className="headerStyle" >
-                  {this.state.user.firstName}'s Work Information
+                  {this.state.user.firstName + "'s Work Information"}
                 </div>
                 <div className="infoCard" >
-                {this.workFields.map(field => { return(
                   <div className="infoStyle" >
-                    <label className="label" > {field.label} </label>
-                    <input className="inputField" type="text" name={field.field} value={this.state.user[field.field]} disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/> 
+                    <label className="label" > Job Title </label>
+                    <input className="inputField" type="text" name="lname" value={this.state.user.jobTitle} placeholder="Assistant Professor" disabled />
                   </div>
-                )})}
+                  <div className="infoStyle" >
+                    <label className="label" > Department </label>
+                    <input className="inputField" type="text" name="lname" value={this.state.user.department} placeholder="Software Engineering" disabled />
+                  </div>
+                  <Select className="infoStyle"
+                     placeholder = "Choose a Department"
+                     options={this.state.departments}
+                     onChange={this.onDepartmentChange}
+                     value={this.state.user.department}
+                  />
+                  <div className="infoStyle" >
+                    <label className="label" > Salary </label>
+                    <input className="inputField" type="text" name="lname" value={this.state.user.salary} placeholder="$1,000,000.00" disabled />
+                  </div>
                 </div>
               </div>
               <div className="alignMe" >
