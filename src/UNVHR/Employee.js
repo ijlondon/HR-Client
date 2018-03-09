@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
-import { getUser, editEmployee } from './ApiConnector';
+import { getUser, editEmployee, terminateEmployee } from './ApiConnector';
 import './Profile.css';
 
 export class Employee extends React.Component{
@@ -50,6 +50,7 @@ export class Employee extends React.Component{
 
     this.toggleEdit = this.toggleEdit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.terminateUser = this.terminateUser.bind(this);
   }
 
   handleChange(event) {
@@ -87,6 +88,11 @@ export class Employee extends React.Component{
     }
   }
 
+  terminateUser() {
+    terminateEmployee(this.state.user)
+      .then(console.log('user terminated'));
+  }
+
   toggleEdit() {
     if (!this.state.disabled) {
       editEmployee(this.state.user)
@@ -100,57 +106,58 @@ export class Employee extends React.Component{
 
   render(){
     return (
-        <div className="wrapProfile" >
-            <div>
-              <div><img  className="photoStyle" src={require('./profile.png')} />
+      <div className="wrapProfile" >
+        <div>
+          <div><img  className="photoStyle" src={require('./profile.png')} />
+          </div>
+          <div className="headerStyle" >
+            {this.state.user.firstName}'s Personal Information
+            <button className="editButton" onClick = {this.toggleEdit}>
+              {this.state.buttonLabel}
+            </button>
+          </div>
+          <div className="infoCard" >
+            {this.personalFields.map(field => { return(
+              <div className="infoStyle" >
+                <label className="label" > {field.label} </label>
+                <input className="inputField" type="text" name={field.field} value={this.state.user[field.field]} disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/> 
               </div>
-              <div className="headerStyle" >
-                {this.state.user.firstName}'s Personal Information
-                <button className="editButton" onClick = {this.toggleEdit}>
-                  {this.state.buttonLabel}
-                </button>
-              </div>
-              <div className="infoCard" >
-                {this.personalFields.map(field => { return(
-                  <div className="infoStyle" >
-                    <label className="label" > {field.label} </label>
-                    <input className="inputField" type="text" name={field.field} value={this.state.user[field.field]} disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/> 
-                  </div>
-                )})}
-              </div>
-              <div className="alignMe" >
-                <div className="headerStyle" >
-                  {this.state.user.firstName}'s Work Information
+            )})}
+          </div>
+          <div className="alignMe" >
+            <div className="headerStyle" >
+              {this.state.user.firstName}'s Work Information
+            </div>
+            <div className="infoCard" >
+              {this.workFields.map(field => { return(
+                <div className="infoStyle" >
+                  <label className="label" > {field.label} </label>
+                  <input className="inputField" type="text" name={field.field} value={this.state.user[field.field]} disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/> 
                 </div>
-                <div className="infoCard" >
-                {this.workFields.map(field => { return(
-                  <div className="infoStyle" >
-                    <label className="label" > {field.label} </label>
-                    <input className="inputField" type="text" name={field.field} value={this.state.user[field.field]} disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/> 
-                  </div>
-                )})}
-                </div>
-              </div>
-              <div className="alignMe" >
-                <div className="headerStyle" >
-                  Employees
-                </div>
-                <div className="infoCard">
-                  {this.state.employees.map(employee => { return(
-                    <div className="employeeCard" >
-                      <img className="employeeAvatar" src={require('./profile.png')} />
-                      <p className="employeeName" >{employee.firstName} {employee.lastName}</p>
-                      <Link to={`/Employee/${employee.id}`}>
-                        <button className="viewButton">
-                          View Profile
-                        </button>
-                      </Link>
-                    </div>
-                  )})}
-                </div>
-              </div>
+              )})}
+              <button className="changeButton" onClick={this.terminateUser}>Terminate</button>
             </div>
           </div>
+          <div className="alignMe" >
+            <div className="headerStyle" >
+              Employees
+            </div>
+            <div className="infoCard">
+              {this.state.employees.map(employee => { return(
+                <div className="employeeCard" >
+                  <img className="employeeAvatar" src={require('./profile.png')} />
+                  <p className="employeeName" >{employee.firstName} {employee.lastName}</p>
+                  <Link to={`/Employee/${employee.id}`}>
+                    <button className="viewButton">
+                      View Profile
+                    </button>
+                  </Link>
+                </div>
+              )})}
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }
