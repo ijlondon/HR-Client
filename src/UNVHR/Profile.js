@@ -111,7 +111,7 @@ export class Profile extends React.Component{
                     <label className="label" > Salary </label>
                     <input className="inputField" type="text" name="lname" value={this.state.user.salary} placeholder="$1,000,000.00" disabled />
                   </div>
-                  <a href="https://www.its.ny.gov">powered by <img src="https://data.ny.gov/api/assets/24867D9C-004D-4A57-80CA-6757C009D140"></img></a>
+                  <a href="https://www.its.ny.gov">Powered by <img className="nyIMG"  src="https://data.ny.gov/api/assets/24867D9C-004D-4A57-80CA-6757C009D140"></img></a>
                 </div>
               </div>
               <div className="alignMe" >

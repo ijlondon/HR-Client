@@ -12,6 +12,12 @@
 
 }
 
+.nyIMG{
+    width: 400px;  
+    padding: 5px;
+    padding-left: 20px;
+}
+
 .headerStyle{
   display: inline-block;
   width: 800px;
