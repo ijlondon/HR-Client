@@ -13,6 +13,7 @@ export class Employee extends React.Component{
       user: {},
       employees: [],
       disabled: true,
+      salary_estimate: 0,
       buttonLabel: "Edit" // inital state
     }
 
@@ -81,6 +82,30 @@ export class Employee extends React.Component{
     this.updateUser();
   }
 
+  getSalary() {
+    let user = this.state.user
+    // Uncomment line below for working example
+    // user.jobTitle = "Computer Programmers"
+    if (user.jobTitle == null) {
+      return;
+    }
+    var url = 'https://data.ny.gov/resource/tn4j-d3nf.json?area=36&occupational_title=' + user.jobTitle
+    // If user has a null jobTitle, allow html placeholder to fill instead of API
+    fetch(url).then( result => {
+      return result.json();
+    }).then( res => {
+        var sal = 1000000
+        // If API returns successfully, overwrite default value with result
+        if (res.length != 0) {
+          sal = Number(res[0].mean);
+        }
+        // Format salary to be readable
+        sal = sal.toLocaleString()
+        sal = "$" + sal + ".00"
+        this.setState({ salary_estimate: sal })
+      });
+  }
+
   componentDidUpdate() {
     this.updateUser();
   }
@@ -95,6 +120,7 @@ export class Employee extends React.Component{
           user: user,
           employees: user.workers,
         });
+        this.getSalary();
         console.log("state", this.state);
       });
     }
@@ -152,8 +178,13 @@ export class Employee extends React.Component{
                   />
                   <div className="infoStyle" >
                     <label className="label" > Salary </label>
-                    <input className="inputField" type="text" name="lname" value={this.state.user.salary} placeholder="$1,000,000.00" disabled />
+                    <input className="inputField" type="text" name="lname" value={"$" + this.state.user.salary + ".00"} placeholder="$1,000,000.00" disabled />
                   </div>
+                  <div className="infoStyle" >
+                    <label className="label" > Salary Estimate </label>
+                    <input className="inputField" type="text" name="lname" value={this.state.salary_estimate} placeholder="$1,000,000.00" disabled />
+                  </div>
+                  <a href="https://www.its.ny.gov">Powered by <img className="nyIMG"  src="https://data.ny.gov/api/assets/24867D9C-004D-4A57-80CA-6757C009D140"></img></a>
                 </div>
               </div>
               <div className="alignMe" >
