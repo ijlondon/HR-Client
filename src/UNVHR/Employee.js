@@ -12,6 +12,7 @@ export class Employee extends React.Component{
       departments: [],
       user: {},
       employees: [],
+      currentDepartment: null,
       disabled: true,
       salary_estimate: 0,
       buttonLabel: "Edit" // inital state
@@ -53,6 +54,7 @@ export class Employee extends React.Component{
 
     this.toggleEdit = this.toggleEdit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.onDepartmentChange = this.onDepartmentChange.bind(this);
   }
 
   handleChange(event) {
@@ -80,6 +82,12 @@ export class Employee extends React.Component{
     });
 
     this.updateUser();
+  }
+
+  onDepartmentChange(value) {
+    this.setState({
+      currentDepartment: value.label
+    })
   }
 
   getSalary() {
@@ -168,13 +176,15 @@ export class Employee extends React.Component{
                   </div>
                   <div className="infoStyle" >
                     <label className="label" > Department </label>
-                    <input className="inputField" type="text" name="lname" value={this.state.user.department} placeholder="Software Engineering" disabled />
+                    <input className="inputField" type="text" name="lname" value={this.state.currentDepartment} placeholder="Software Engineering" disabled />
                   </div>
-                  <Select className="infoStyle"
+                  <label className="label" > Change Department </label>
+                  <Select className="infoStyle" Department
                      placeholder = "Choose a Department"
                      options={this.state.departments}
                      onChange={this.onDepartmentChange}
-                     value={this.state.user.department}
+                     value={this.state.currentDepartment}
+                     disabled={(this.state.disabled)? "disabled" : ""}
                   />
                   <div className="infoStyle" >
                     <label className="label" > Salary </label>
