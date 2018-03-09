@@ -44,3 +44,8 @@ export function editEmployee(employee) {
   const endpoint = 'employee/' + employee.id + '/edit';
   return makeApiPostRequest(endpoint, employee);
 }
+
+export function terminateEmployee(employee) {
+  const endpoint = `employee/${employee.id}/terminate`;
+  return makeApiPostRequest(endpoint, {});
+}
