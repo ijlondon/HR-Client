@@ -1,8 +1,7 @@
 .wrapProfile{
-    min-height: 109vh;
+    min-height: 120vh;
   }
   
-
 .photoStyle{
     width: 200px;
     height: 200px;
@@ -10,6 +9,12 @@
     margin-left: 220px;
     float: left;
 
+}
+
+.nyIMG{
+    width: 400px;  
+    padding: 5px;
+    padding-left: 20px;
 }
 
 .headerStyle{
@@ -32,6 +37,20 @@
   width: 800px;
   padding: 5px;
   padding-left: 25px;
+  text-align: left;
+  background-color: white;
+  margin: auto;
+  margin-top: 20px;
+  border: 1px solid f0eeec;
+  box-shadow: 3px 3px gainsboro;
+  font-size: 20px;
+}
+
+.infoCard2{
+    display: inline-block;
+  width: 800px;
+  padding: 0px;
+  padding-left: 0px;
   text-align: left;
   background-color: white;
   margin: auto;
