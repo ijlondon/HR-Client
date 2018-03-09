@@ -118,7 +118,7 @@ export class Profile extends React.Component{
                 <div className="headerStyle" >
                   Employees that report to you
                 </div>
-                <div className="infoCard">
+                <div className="infoCard2">
                   <div className="employeeCard" >
                     <img  style={{width:'120px', height:'120px', margin: 'auto',  display:'block'}} src={require('./profile.png')} />
                     <p className="employeeName" >Andy Meneely</p>
