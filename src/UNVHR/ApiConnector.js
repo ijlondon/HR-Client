@@ -1,4 +1,4 @@
-const apiRoot = 'https://hr-system-api-professionals.herokuapp.com/'
+const apiRoot = process.env.REACT_APP_API_HOST;
 
 function makeApiGetRequest(endpoint) {
   return fetch(apiRoot + endpoint)
