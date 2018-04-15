@@ -1,8 +1,18 @@
+import {getCurrentUser} from './UserService';
+
 const apiRoot = process.env.REACT_APP_API_HOST;
 
 function makeApiGetRequest(endpoint) {
-  return fetch(apiRoot + endpoint)
-    .then(results=> { return results.json() });
+  const init = {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + getCurrentUser().accessToken
+    },
+  };
+  return fetch(apiRoot + endpoint, init)
+    .then(results => { return results.json() });
 }
 
 export function getUser(userId) {
@@ -32,6 +42,7 @@ function makeApiPostRequest(endpoint, body) {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + getCurrentUser().accessToken
     },
     body: JSON.stringify(body)
   };
