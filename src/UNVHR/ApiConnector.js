@@ -8,9 +8,11 @@ function makeApiGetRequest(endpoint) {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + getCurrentUser().accessToken
     },
   };
+  if (getCurrentUser()) {
+    init.headers['Authorization'] = 'Bearer ' + getCurrentUser().accessToken;
+  }
   return fetch(apiRoot + endpoint, init)
     .then(results => { return results.json() });
 }
@@ -42,11 +44,12 @@ function makeApiPostRequest(endpoint, body) {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + getCurrentUser().accessToken
     },
     body: JSON.stringify(body)
   };
-
+  if (getCurrentUser()) {
+    init.headers['Authorization'] = 'Bearer ' + getCurrentUser().accessToken;
+  }
   return fetch(url, init)
     .then(results => { return results.json() });
 }
