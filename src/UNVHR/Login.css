@@ -1,0 +1,22 @@
+.LogBTN{
+    height: 40px;
+    width: 90px;
+    background-color: #f36e21;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    border-radius: 8px;
+    -webkit-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    transition: background-color 0.5s;
+    cursor: pointer;
+  }
+  
+  .LogBTN:hover{
+    background-color: gray;
+    color: white !important;
+    text-decoration: none;
+    cursor: pointer;
+  }

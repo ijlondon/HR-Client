@@ -13,11 +13,11 @@ import {
   DropdownItem } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import {Link} from 'react-router';
-import './Header.css';
 import logo from './logo.png';
 import {getCurrentUser} from './UserService';
 import {SearchBox} from './SearchBox';
 import {Login} from './Login';
+import './Header.css';
 
 
   export class Header extends React.Component {
@@ -39,19 +39,21 @@ import {Login} from './Login';
         <div>
           <Navbar color="faded" light expand="md">
 
-            <NavbarToggler onClick={this.toggle} />
+            
 
-            <SearchBox/>
-            <Login />
-
-            <NavbarBrand href="/Home">
-                {getCurrentUser() ? 'Hello ' + getCurrentUser().w3.ig : ''}
+             <NavbarBrand href="/Home">
+                
                 <img src={logo} style={{width:60, marginTop: -7, padding:'5px'}} />
                 Human Resources 
             </NavbarBrand>
 
+                    
+
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
+              <NavItem>
+              <SearchBox className="SearchBox" />
+                </NavItem>
                 <NavItem>
                   <NavLink href="/Home">Home</NavLink>
                 </NavItem>
@@ -61,10 +63,24 @@ import {Login} from './Login';
                 <NavItem>
                   <NavLink href="/Profile">Profile</NavLink>
                 </NavItem>
+                <NavItem>
+                <NavLink className="userNameStyle"><div className="userNameStyle1">{getCurrentUser() ? 'Hello, ' + getCurrentUser().w3.ig : ''}</div></NavLink>
+
+                </NavItem>
+                <NavItem>
+                  <NavLink><Login /></NavLink>
+
+                </NavItem>
+                
               </Nav>
             </Collapse>
 
+            <NavbarToggler onClick={this.toggle} />
+
           </Navbar>
+
+          
+          
         </div>
       );
     }
