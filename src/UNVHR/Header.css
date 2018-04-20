@@ -39,15 +39,12 @@ a:hover{
   padding: 0px;
 }
 
-.userNameStyle{
-  cursor: default;
-}
-
 .userNameStyle1{
   color: white;
-  font-size: 14px;
+  font-size: 16px;
   cursor: default;
-  margin-top: 10px;
+  
+
 }
 
 .SearchBox{
@@ -59,4 +56,21 @@ a:hover{
   color: #f36e21;
   margin-top: 8px;
   margin-right: 50px;
+}
+
+.logME{
+  margin-left: 10px
+}
+
+.btn-secondary {
+  color: #fff;
+  background-color: #333;
+  border-color: #333;
+  margin-right: 5px;
+}
+
+.buttonGRP{
+  margin: auto;
+  width: 435px;
+  margin-top: 20px;
 }
