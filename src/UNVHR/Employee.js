@@ -155,11 +155,12 @@ export class Employee extends React.Component{
     return (
         <div className="wrapProfile" >
           <div>
-            <div><img className="photoStyle" src={require('./profile.png')} />
-            <button className="changeButton" onClick={this.terminateUser}>Terminate</button>
+            <div>
+                <img className="photoStyle" src={require('./profile.png')} />
             </div>
             <div className="headerStyle" >
               {this.state.user.firstName + "'s Personal Information" }
+              <button className="trmButton" onClick={this.terminateUser}>Terminate</button>
               <button className="editButton" onClick = {this.toggleEdit}>
                 {this.state.buttonLabel}
               </button>
