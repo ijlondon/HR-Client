@@ -33,7 +33,7 @@ export function listDepartments() {
 }
 
 export function searchUser(query) {
-  const endpoint = 'user/search?toSearch=' + query;
+  const endpoint = 'employee/search?toSearch=' + query;
   return makeApiGetRequest(endpoint);
 }
 

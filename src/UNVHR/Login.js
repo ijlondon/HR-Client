@@ -1,6 +1,8 @@
 import React from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { getCurrentUser, handleLogin, handleLogout } from './UserService';
+import './Login.css';
+
 
 export class Login extends React.Component{
   constructor(props) {
@@ -19,6 +21,7 @@ export class Login extends React.Component{
         <GoogleLogout
           buttonText="Logout"
           onLogoutSuccess={handleLogout}
+          className="LogBTN"
         >
         </GoogleLogout>
       )
@@ -29,6 +32,7 @@ export class Login extends React.Component{
           buttonText="Login"
           onSuccess={handleLogin}
           onFailure={this.responseGoogle}
+          className="LogBTN"
         />
       );
     }

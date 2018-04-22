@@ -131,6 +131,32 @@
     cursor: pointer;
   }
 
+  .trmButton{
+    padding: 5px;
+    height: 30px;
+    width: 70px;
+    background-color: #f36e21;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 8px;
+    -webkit-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    transition: background-color 0.5s;
+    cursor: pointer;
+    float: right;
+    margin: 5px;
+  }
+  
+  .trmButton:hover{
+    background-color: gray;
+    color: white !important;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
   .changeButton{
     padding: 5px;
     height: 30px;

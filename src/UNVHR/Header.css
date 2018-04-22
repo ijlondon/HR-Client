@@ -38,3 +38,39 @@ a:hover{
 .navbar-brand {
   padding: 0px;
 }
+
+.userNameStyle1{
+  color: white;
+  font-size: 16px;
+  cursor: default;
+  
+
+}
+
+.SearchBox{
+  margin-top: 10px;
+}
+
+.form-control {
+  width: 300px;
+  color: #f36e21;
+  margin-top: 8px;
+  margin-right: 50px;
+}
+
+.logME{
+  margin-left: 10px
+}
+
+.btn-secondary {
+  color: #f36e21;
+  background-color: #333;
+  border-color: #333;
+  margin-right: 5px;
+}
+
+.buttonGRP{
+  margin: auto;
+  width: 435px;
+  margin-top: 20px;
+}

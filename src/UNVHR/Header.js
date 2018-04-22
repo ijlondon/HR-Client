@@ -13,58 +13,53 @@ import {
   DropdownItem } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import {Link} from 'react-router';
-import './Header.css';
 import logo from './logo.png';
 import {getCurrentUser} from './UserService';
 import {SearchBox} from './SearchBox';
 import {Login} from './Login';
+import './Header.css';
+import { Button, ButtonGroup } from 'reactstrap';
+
+
 
 
   export class Header extends React.Component {
-    constructor(props) {
-      super(props);
-
-      this.toggle = this.toggle.bind(this);
-      this.state = {
-        isOpen: false
-      };
-    }
-    toggle() {
-      this.setState({
-        isOpen: !this.state.isOpen
-      });
-    }
+    
     render() {
       return (
         <div>
           <Navbar color="faded" light expand="md">
 
-            <NavbarToggler onClick={this.toggle} />
+            
 
-            <SearchBox/>
-            <Login />
-
-            <NavbarBrand href="/Home">
-                {getCurrentUser() ? 'Hello ' + getCurrentUser().w3.ig : ''}
+             <NavbarBrand href="/Home">
+                
                 <img src={logo} style={{width:60, marginTop: -7, padding:'5px'}} />
                 Human Resources 
             </NavbarBrand>
 
-            <Collapse isOpen={this.state.isOpen} navbar>
-              <Nav className="ml-auto" navbar>
-                <NavItem>
-                  <NavLink href="/Home">Home</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="/Departments">Departments</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="/Profile">Profile</NavLink>
-                </NavItem>
-              </Nav>
-            </Collapse>
+            <SearchBox className="SearchBox" />  
+
+            
+            
+            <div className="userNameStyle1">
+            
+              {getCurrentUser() ? 'Hello, ' + getCurrentUser().w3.ig : ''}
+
+              <Login/>
+            </div>     
+
 
           </Navbar>
+
+          <div className="buttonGRP">
+          <ButtonGroup size="lg">
+            <Button href="/Home">Find an Employee</Button>
+            <Button href="/Departments">Departments</Button>
+            <Button href="/Profile">Profile</Button>
+          </ButtonGroup>
+          </div>       
+          
         </div>
       );
     }
