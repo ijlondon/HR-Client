@@ -15,7 +15,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {Link} from 'react-router';
 import './Header.css';
 import logo from './logo.png';
-import {SearchBox} from './SearchBox'
+import {getCurrentUser} from './UserService';
+import {SearchBox} from './SearchBox';
+import {Login} from './Login';
 
 
   export class Header extends React.Component {
@@ -40,8 +42,10 @@ import {SearchBox} from './SearchBox'
             <NavbarToggler onClick={this.toggle} />
 
             <SearchBox/>
+            <Login />
 
             <NavbarBrand href="/Home">
+                {getCurrentUser() ? 'Hello ' + getCurrentUser().w3.ig : ''}
                 <img src={logo} style={{width:60, marginTop: -7, padding:'5px'}} />
                 Human Resources 
             </NavbarBrand>
