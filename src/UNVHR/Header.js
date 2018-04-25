@@ -28,7 +28,7 @@ import { Button, ButtonGroup } from 'reactstrap';
     render() {
       return (
         <div>
-          <Navbar color="faded" light expand="md">
+          <Navbar id={navbar} color="faded" light expand="md">
 
             
 
