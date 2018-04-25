@@ -184,16 +184,13 @@ export class Employee extends React.Component{
                 </div>
                 <div className="infoStyle" >
                   <label className="label" > Department </label>
-                  <input className="inputField" type="text" name="lname" value={this.state.currentDepartment} placeholder="Software Engineering" disabled />
+                  <Select className="selectField" Department
+                    placeholder = "Software Engineering"
+                    options={this.state.departments}
+                    onChange={this.onDepartmentChange}
+                    value={this.state.currentDepartment}
+                    disabled={(this.state.disabled)? "disabled" : ""} ></Select>
                 </div>
-                <label className="label" > Change Department </label>
-                <Select className="infoStyle" Department
-                   placeholder = "Choose a Department"
-                   options={this.state.departments}
-                   onChange={this.onDepartmentChange}
-                   value={this.state.currentDepartment}
-                   disabled={(this.state.disabled)? "disabled" : ""}
-                />
                 <div className="infoStyle" >
                   <label className="label" > Salary </label>
                   <input className="inputField" type="text" name="lname" value={"$" + this.state.user.salary + ".00"} placeholder="$1,000,000.00" disabled />
