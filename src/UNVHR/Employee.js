@@ -83,7 +83,6 @@ export class Employee extends React.Component{
         value: index
       }});
       this.setState({ departments: departments });
-      console.log("state", this.state);
     });
 
     const jobs = JobList.map((job, index) => { return {
@@ -97,14 +96,14 @@ export class Employee extends React.Component{
 
   onDepartmentChange(value) {
     this.setState({
-      currentDepartment: value.label
-    })
+      currentDepartment: value
+    });
   }
 
   onJobChange(value) {
     this.setState({
-      currentJob: value.label
-    })
+      currentJob: value
+    });
   }
 
   getSalary() {
@@ -121,7 +120,7 @@ export class Employee extends React.Component{
     }).then( res => {
         var sal = 1000000
         // If API returns successfully, overwrite default value with result
-        if (res.length != 0) {
+        if (res.length) {
           sal = Number(res[0].mean);
         }
         // Format salary to be readable
@@ -137,7 +136,7 @@ export class Employee extends React.Component{
 
   updateUser() {
     // If no user is loaded or the wrong user is loaded, get the correct user
-    if ((!this.state.user.id && this.state.user.id != 0) || this.props.params['employeeId'] !== this.state.user.id.toString()) {
+    if ((!this.state.user.id && this.state.user.id !== 0) || this.props.params['employeeId'] !== this.state.user.id.toString()) {
       getUser(this.props.params['employeeId'])
       .then(data => {
         let user = data.data;
@@ -146,7 +145,6 @@ export class Employee extends React.Component{
           employees: user.workers,
         });
         this.getSalary();
-        console.log("state", this.state);
       });
     }
   }
@@ -196,21 +194,23 @@ export class Employee extends React.Component{
               <div className="infoCard" >
                 <div className="infoStyle" >
                   <label className="label" > Job Title </label>
-                  <Select className="selectField" JobTitle
+                  <Select className="selectField"
                     placeholder = "Assistant Professor"
                     options={this.state.jobs}
                     onChange={this.onJobChange}
                     value={this.state.currentJob}
-                    disabled={(this.state.disabled)? "disabled" : ""} ></Select>
+                    // disabled={(this.state.disabled)? "disabled" : ""}
+                    />
                 </div>
                 <div className="infoStyle" >
                   <label className="label" > Department </label>
-                  <Select className="selectField" Department
+                  <Select className="selectField"
                     placeholder = "Software Engineering"
                     options={this.state.departments}
                     onChange={this.onDepartmentChange}
                     value={this.state.currentDepartment}
-                    disabled={(this.state.disabled)? "disabled" : ""} ></Select>
+                    // disabled={(this.state.disabled)? "disabled" : ""}
+                    />
                 </div>
                 <div className="infoStyle" >
                   <label className="label" > Salary </label>
