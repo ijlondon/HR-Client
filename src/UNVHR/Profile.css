@@ -105,6 +105,21 @@
 
   }
 
+  .selectField{
+    display: inline-block;
+    width: 400px;
+    height: 35px;
+    box-shadow: 0 3px 5px gainsboro;
+    border-radius: 5px;
+    text-align: Left;
+    font-size: 16px;
+    margin-left: 10px;
+  }
+
+  .Select-control {
+    border: 1px solid #f36e21;
+  }
+  
   .editButton{
     padding: 5px;
     height: 30px;
