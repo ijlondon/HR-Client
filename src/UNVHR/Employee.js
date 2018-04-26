@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Select from 'react-select';
 import { Link } from 'react-router';
 import { getUser, editEmployee, listDepartments, terminateEmployee} from './ApiConnector';
+import JobList from './occupations.json';
 import './Profile.css';
 
 export class Employee extends React.Component{
@@ -10,9 +11,11 @@ export class Employee extends React.Component{
     super(props)
     this.state = {
       departments: [],
+      jobs: [],
       user: {},
       employees: [],
       currentDepartment: null,
+      currentJob: null,
       disabled: true,
       salary_estimate: 0,
       buttonLabel: "Edit" // inital state
@@ -55,6 +58,7 @@ export class Employee extends React.Component{
     this.toggleEdit = this.toggleEdit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.onDepartmentChange = this.onDepartmentChange.bind(this);
+    this.onJobChange = this.onJobChange.bind(this);
     this.terminateUser = this.terminateUser.bind(this);
   }
 
@@ -82,12 +86,24 @@ export class Employee extends React.Component{
       console.log("state", this.state);
     });
 
+    const jobs = JobList.map((job, index) => { return {
+      label: job.OccupationalTitle,
+      value: job
+    }});
+    this.setState({ jobs: jobs });
+
     this.updateUser();
   }
 
   onDepartmentChange(value) {
     this.setState({
       currentDepartment: value.label
+    })
+  }
+
+  onJobChange(value) {
+    this.setState({
+      currentJob: value.label
     })
   }
 
@@ -180,7 +196,12 @@ export class Employee extends React.Component{
               <div className="infoCard" >
                 <div className="infoStyle" >
                   <label className="label" > Job Title </label>
-                  <input className="inputField" type="text" name="lname" value={this.state.user.jobTitle} placeholder="Assistant Professor" disabled />
+                  <Select className="selectField" JobTitle
+                    placeholder = "Assistant Professor"
+                    options={this.state.jobs}
+                    onChange={this.onJobChange}
+                    value={this.state.currentJob}
+                    disabled={(this.state.disabled)? "disabled" : ""} ></Select>
                 </div>
                 <div className="infoStyle" >
                   <label className="label" > Department </label>
