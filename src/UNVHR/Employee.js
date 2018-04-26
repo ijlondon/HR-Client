@@ -130,6 +130,13 @@ export class Employee extends React.Component{
       });
   }
 
+  prettySalary(sal) {
+    sal = Number(sal);
+    sal = sal.toLocaleString();
+    sal = "$" + sal + ".00";
+    return sal;
+  }
+
   componentDidUpdate() {
     this.updateUser();
   }
@@ -199,7 +206,7 @@ export class Employee extends React.Component{
                     options={this.state.jobs}
                     onChange={this.onJobChange}
                     value={this.state.currentJob}
-                    // disabled={(this.state.disabled)? "disabled" : ""}
+                    disabled={(this.state.disabled)? "disabled" : ""}
                     />
                 </div>
                 <div className="infoStyle" >
@@ -209,16 +216,16 @@ export class Employee extends React.Component{
                     options={this.state.departments}
                     onChange={this.onDepartmentChange}
                     value={this.state.currentDepartment}
-                    // disabled={(this.state.disabled)? "disabled" : ""}
+                    disabled={(this.state.disabled)? "disabled" : ""}
                     />
                 </div>
                 <div className="infoStyle" >
                   <label className="label" > Salary </label>
-                  <input className="inputField" type="text" name="lname" value={"$" + this.state.user.salary + ".00"} placeholder="$1,000,000.00" disabled />
+                  <input className="inputField" type="text" name="salary" value={this.state.user.salary} placeholder="$1,000,000.00" disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/>
                 </div>
                 <div className="infoStyle" >
                   <label className="label" > Salary Estimate </label>
-                  <input className="inputField" type="text" name="lname" value={this.state.salary_estimate} placeholder="$1,000,000.00" disabled />
+                  <input className="inputField" type="text" name="salary_estimate" value={this.state.salary_estimate} placeholder="$1,000,000.00" disabled />
                 </div>
                 <a href="https://www.its.ny.gov">Powered by <img className="nyIMG"  src="https://data.ny.gov/api/assets/24867D9C-004D-4A57-80CA-6757C009D140"></img></a>
               </div>
