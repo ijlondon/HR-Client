@@ -28,16 +28,12 @@ class DepartmentsRow extends React.Component {
     })
   }
     render() {
-        const {
-            data
-        } = this.props;
+        const { data } = this.props;
 
-        return ( data.map((data) =>
-                <tr>
-                    <td contenteditable = {(this.state.contenteditable)? "contenteditable" : ""} key={data.name}>{data.name}</td>
-                    <td key={data.head}>{data.headFirst}{" "}{data.headLast}</td>
-                    <td key={data.noEmployees} className="empl">{data.noEmployees}</td>
-                    <td><button className="option-button" >View</button> <button className="option-button" onClick = {this.toggleEdit}>{this.state.buttonLabel} </button></td>
+        return (data.map((data) =>
+                <tr key={data.id}>
+                    <td contentEditable = {(this.state.contenteditable)? "contentEditable" : ""} key={data.name}>{data.name}</td>
+                    <td><button className="option-button" onClick = {this.toggleEdit}>{this.state.buttonLabel} </button></td>
                 </tr>)
         );
     }
@@ -52,16 +48,11 @@ export class Departments extends React.Component{
     }
     
     componentDidMount() {
-        listDepartments()
-        .then(response => {
-            const departments = response.data.map(department => { return {
-                name: department.name,
-                headFirst: department.head.firstName,
-                headLast: department.head.lastName,
-                noEmployees: department.workers.length
-            }});
-            this.setState({departments: departments})
-        });
+        // get the list of departments
+        listDepartments() 
+        .then(response => { 
+            this.setState({departments: response.data});
+         })
     }
 
     render(){
@@ -73,10 +64,7 @@ export class Departments extends React.Component{
                     <tbody>
                     <tr>
                         <th>Department</th>
-                        <th>Head Name</th>
-                        <th>Number of Employees</th>
                         <th>Options</th>
-                        
                     </tr>
                     <DepartmentsRow data={this.state.departments}/>
                     </tbody>
