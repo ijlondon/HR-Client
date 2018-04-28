@@ -18,7 +18,7 @@ export class Employee extends React.Component{
       currentJob: null,
       disabled: true,
       salary_estimate: 0,
-      buttonLabel: "Edit" // inital state
+      buttonLabel: "Edit" // initial state
     }
 
     this.personalFields = [
@@ -78,11 +78,7 @@ export class Employee extends React.Component{
 
     listDepartments()
     .then(response => {
-      const departments = response.data.map((department, index) => { return {
-        label: department.name,
-        value: index
-      }});
-      this.setState({ departments: departments });
+      this.setState({ departments: response.data });
     });
 
     const jobs = JobList.map((job, index) => { return {
@@ -150,6 +146,8 @@ export class Employee extends React.Component{
         this.setState({
           user: user,
           employees: user.workers,
+          currentDepartment: user.department,
+          currentJob: {label: user.jobTitle},
         });
         this.getSalary();
       });
@@ -163,7 +161,10 @@ export class Employee extends React.Component{
 
   toggleEdit() {
     if (!this.state.disabled) {
-      editEmployee(this.state.user)
+      let newUser = this.state.user;
+      newUser.department = this.state.currentDepartment;
+      newUser.jobTitle = this.state.currentJob.label;
+      editEmployee(newUser)
       .then(response => console.log(response));
     }
     this.setState({
@@ -206,16 +207,19 @@ export class Employee extends React.Component{
                     options={this.state.jobs}
                     onChange={this.onJobChange}
                     value={this.state.currentJob}
+                    labelKey="label"
+                    valueKey="label"
                     disabled={(this.state.disabled)? "disabled" : ""}
                     />
                 </div>
                 <div className="infoStyle" >
                   <label className="label" > Department </label>
                   <Select className="selectField"
-                    placeholder = "Software Engineering"
                     options={this.state.departments}
                     onChange={this.onDepartmentChange}
                     value={this.state.currentDepartment}
+                    valueKey="id"
+                    labelKey="name"
                     disabled={(this.state.disabled)? "disabled" : ""}
                     />
                 </div>
