@@ -43,12 +43,16 @@ a:hover{
   color: white;
   font-size: 16px;
   cursor: default;
-  
-
 }
 
 .SearchBox{
   margin-top: 10px;
+  position: relative;
+}
+
+.SearchBox1{
+  margin-top: 10px;
+  width: max-content;
 }
 
 .form-control {
@@ -67,14 +71,36 @@ a:hover{
   background-color: #333;
   border-color: #333;
   margin-right: 5px;
+  width: 200px;
 }
 
 .buttonGRP{
   margin: auto;
-  width: 435px;
+  width: 610px;
   margin-top: 20px;
+  }
+
+.bttnGRPSM{
+  /*margin: auto;*/
+  /*width: 610px;*/
+  margin-top: 20px;
+  margin-left: 185px;
+  margin-right: 185px;
 }
 
-@media screen and (min-width: 480px) {
-  #navbar {width: 200px; float: left;}
+ul {
+  justify-content: center;
+  padding-right: 10px;
+  padding-left: 25px;
+  text-align: center;
+}
+
+.menuItem {
+  display:inline-block;
+  /*display:table;*/
+  margin:0 auto 0 auto;
+
+  list-style-type: none;
+  /*margin: 4px;*/
+  padding: 2px;
 }
