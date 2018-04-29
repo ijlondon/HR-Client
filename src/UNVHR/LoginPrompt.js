@@ -1,12 +1,13 @@
 import React from 'react';
+import './LoginPrompt.css';
 
 
 export class LoginPrompt extends React.Component{
   render() {
     return (
-      <div className="container">
+      <div className="parent" >
         <h1>Log In</h1>
-        <p>Please log in before using the HR System</p>
+        <text >Please log in before using the HR System </text>
       </div>
     );
   }
