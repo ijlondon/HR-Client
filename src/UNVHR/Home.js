@@ -79,6 +79,7 @@ export class Home extends React.Component {
                  options={this.state.employees}
                  onChange={this.onEmployeeChange}
                  value={this.state.currentEmployee}
+                 disabled={!this.state.currentDepartment}
               />
 
               {/* If an employee is selected, this should link to their profile. Otherwise it'll link to the home page */}
