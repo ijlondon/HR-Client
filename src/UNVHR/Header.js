@@ -12,7 +12,10 @@ import {
   Dropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem} from 'reactstrap';
+  DropdownItem,
+  Container,
+  Row,
+  Col} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import {Link} from 'react-router';
 import logo from './logo.png';
@@ -31,25 +34,24 @@ import { Button, ButtonGroup } from 'reactstrap';
       return (
         <div>
             <Media query="(min-width: 920px)">
-          <Navbar color="faded" light expand="md">
+          <Navbar color="faded" light expand="md" >
 
 
 
-             <NavbarBrand href="/Home">
+             <NavItem><NavbarBrand href="/Home">
                 
                 <img src={logo} style={{width:60, marginTop: -7, padding:'5px'}} />
                 Human Resources 
-            </NavbarBrand>
+             </NavbarBrand></NavItem>
 
-              <NavItem><SearchBox className="SearchBox" /></NavItem>
+              <SearchBox className="SearchBox" />
             
-              <NavItem><div className="userNameStyle1" >
+              <div className="userNameStyle1" >
             
               {getCurrentUser() ? 'Hello, ' + getCurrentUser().w3.ig : ''}
 
               <Login/>
-              </div></NavItem>
-<br/>
+              </div>
 
           </Navbar>
             </Media>
@@ -63,7 +65,7 @@ import { Button, ButtonGroup } from 'reactstrap';
                         <img src={logo} style={{width:60, marginTop: -7, padding:'5px'}} />
                     </NavbarBrand>
 
-                    <SearchBox className="SearchBox" style={{width: 30}} />
+                    {/*<SearchBox className="SearchBox" style={{width: 30}} />*/}
 
                     <div className="userNameStyle1" >
 
@@ -85,13 +87,15 @@ import { Button, ButtonGroup } from 'reactstrap';
           </Media>
 
               <Media query="(max-width: 599px)">
-                  <ButtonGroup size="lg" vertical block="true" className="bttnGRPSM">
+                  <Row>
+
+                      <ButtonGroup size="lg" vertical block="true" className="bttnGRPSM" >
 
                       <Button href="/Home">Find an Employee</Button>
                       <Button href="/Departments">Departments</Button>
                       <Button href="/Profile">Profile</Button>
-
-              </ButtonGroup>
+                  </ButtonGroup>
+                  </Row>
               </Media>
           </div>       
           
