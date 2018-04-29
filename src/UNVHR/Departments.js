@@ -2,39 +2,47 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import './Departments.css';
-import {listDepartments} from './ApiConnector';
+import {listDepartments, editDepartment} from './ApiConnector';
 
 
 
-class DepartmentsRow extends React.Component {
+class DepartmentRow extends React.Component {
     constructor(props) {
     super(props)
     this.state = {
-      contenteditable: true,
-      buttonLabel: "Edit" // inital state
+        department: props.department,
+        contenteditable: true,
+        buttonLabel: "Edit" // initial state
     }
     this.toggleEdit = this.toggleEdit.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
   }
 
-  componentDidMount() {
-    this.editButton = ReactDOM.findDOMNode(this.refs.editButton);
-  }
+    componentDidMount() {
+        this.editButton = ReactDOM.findDOMNode(this.refs.editButton);
+    }
   
+    handleNameChange(e) {
+        let newDepartment = this.state.department;
+        newDepartment.name = e.target.value;
+        this.setState({department: newDepartment});
+    }
   
   toggleEdit() {
+    if (!this.state.contenteditable) {
+        editDepartment(this.state.department);
+    }
     this.setState({
       contenteditable: !this.state.contenteditable,
       buttonLabel: this.state.contenteditable ? "Save" : "Edit" // update it here
     })
   }
     render() {
-        const { data } = this.props;
-
-        return (data.map((data) =>
-                <tr key={data.id}>
-                    <td contentEditable = {(this.state.contenteditable)? "contentEditable" : ""} key={data.name}>{data.name}</td>
-                    <td><button className="option-button" onClick = {this.toggleEdit}>{this.state.buttonLabel} </button></td>
-                </tr>)
+        return (
+            <tr>
+                <td><input value={this.state.department.name} disabled={this.state.contenteditable} onChange={this.handleNameChange} /></td>
+                <td><button className="option-button" onClick = {this.toggleEdit}>{this.state.buttonLabel} </button></td>
+            </tr>
         );
     }
 }
@@ -61,12 +69,16 @@ export class Departments extends React.Component{
                 <br/>
                 <br/>
                 <table className="depTable">
+                    <thead>
+                        <tr>
+                            <th>Department</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
                     <tbody>
-                    <tr>
-                        <th>Department</th>
-                        <th>Options</th>
-                    </tr>
-                    <DepartmentsRow data={this.state.departments}/>
+                    {this.state.departments.map((department) => 
+                        <DepartmentRow key={department.id} department={department} /> 
+                    )}
                     </tbody>
                 </table>
             </div>
