@@ -36,8 +36,7 @@ export class Profile extends React.Component{
 
   getSalary() {
     let user = this.state.user
-    // Uncomment line below for working example
-    // user.jobTitle = "Computer Programmers"
+    // Query salary api
     var url = 'https://data.ny.gov/resource/tn4j-d3nf.json?area=36&occupational_title=' + user.jobTitle
     // If user has a null jobTitle, allow html placeholder to fill instead of API
     if (user.jobTitle == null) {
@@ -92,7 +91,7 @@ export class Profile extends React.Component{
                 </div>
                 <div className="infoStyle" >
                   <label className="label" > Email </label>
-                  <input className="inputField" type="text" name="email" value={this.state.user.email} placeholder="DanKrutz@krutz.com" disabled = {(this.state.disabled)? "disabled" : ""}/>
+                  <input className="inputField" type="text" name="email" value={this.state.user.email} placeholder="DanKrutz@krutz.com" disabled/>
                 </div>
                 <div className="infoStyle" >
                   <label className="label" > Phone </label>
