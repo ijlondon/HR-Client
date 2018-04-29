@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import { getUser, editEmployee, listDepartments, terminateEmployee} from './ApiConnector';
 import JobList from './occupations.json';
 import './Profile.css';
+import $ from 'jquery'; 
 
 export class Employee extends React.Component{
   constructor(props) {
@@ -20,6 +21,9 @@ export class Employee extends React.Component{
       salary_estimate: 0,
       buttonLabel: "Edit" // inital state
     }
+
+    
+    
 
     this.personalFields = [
       {
@@ -165,14 +169,27 @@ export class Employee extends React.Component{
     if (!this.state.disabled) {
       editEmployee(this.state.user)
       .then(response => console.log(response));
+      $('#trmButton').hide();
     }
     this.setState({
       disabled: !this.state.disabled,
       buttonLabel: !this.state.disabled ? "Edit": "Save" // update it here
     });
   }
+  
 
   render(){
+
+    if (this.state.buttonLabel == "Edit"){
+      $("#trmButton").hide();
+      $("#cancelButton").hide();
+    }
+    else{
+      $("#trmButton").show();
+      $("#cancelButton").show();
+    }
+
+    
     return (
         <div className="wrapProfile" >
           <div>
@@ -181,16 +198,18 @@ export class Employee extends React.Component{
             </div>
             <div className="headerStyle" >
               {this.state.user.firstName + "'s Personal Information" }
-              <button className="trmButton" onClick={this.terminateUser}>Terminate</button>
-              <button className="editButton" onClick = {this.toggleEdit}>
+              <button id="editButton "className="editButton" onClick = {this.toggleEdit}>
                 {this.state.buttonLabel}
               </button>
+              
+              <button type="reset" value="Reset" id="cancelButton" className="cancelButton" onClick={this.terminateUser}>Cancel</button>
+              
             </div>
             <div className="infoCard" >
               {this.personalFields.map(field => { return(
               <div className="infoStyle" >
                 <label className="label" > {field.label} </label>
-                <input className="inputField" type="text" name={field.field} value={this.state.user[field.field]} disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/>
+                <input className="inputField" type="text" name={field.field} value={this.state.user[field.field]}  disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/>
               </div>
               )})}
             </div>
@@ -202,7 +221,7 @@ export class Employee extends React.Component{
                 <div className="infoStyle" >
                   <label className="label" > Job Title </label>
                   <Select className="selectField"
-                    placeholder = "Assistant Professor"
+                    placeholder = {this.state.currentJob}
                     options={this.state.jobs}
                     onChange={this.onJobChange}
                     value={this.state.currentJob}
@@ -224,8 +243,9 @@ export class Employee extends React.Component{
                   <input className="inputField" type="text" name="salary" value={this.state.user.salary} placeholder="$1,000,000.00" disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/>
                 </div>
                 <div className="infoStyle" >
-                  <label className="label" > Salary Estimate </label>
-                  <input className="inputField" type="text" name="salary_estimate" value={this.state.salary_estimate} placeholder="$1,000,000.00" disabled />
+                  <label className="label" > Salary Estimate</label>
+                  <div className="salaryEST" >{this.state.salary_estimate}</div>
+                  
                 </div>
                 <a href="https://www.its.ny.gov">Powered by <img className="nyIMG"  src="https://data.ny.gov/api/assets/24867D9C-004D-4A57-80CA-6757C009D140"></img></a>
               </div>
@@ -248,7 +268,12 @@ export class Employee extends React.Component{
                 </div>
               )})}
             </div>
+
           </div>
+          <div className="alignMe" >
+          <button id="trmButton" className="trmButton" onClick={this.terminateUser}>Terminate User</button>
+          </div>
+
         </div>
     );
   }
