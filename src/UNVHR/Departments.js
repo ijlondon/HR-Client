@@ -56,21 +56,17 @@ export class Departments extends React.Component{
     }
     
     componentDidMount() {
-        // get the list of departments
+        // Get the list of departments
         listDepartments() 
         .then(response => { 
             const departments = response.data.map((department) => {
                 const name = department.name;
                 const id = department.id;
-        
                 return { id, name }
               });
               departments.sort((a, b) => a.id - b.id);
               this.setState({ departments: departments });
             });
-        
-        //     this.setState({departments: response.data});
-        //  })
     }
 
     render(){
