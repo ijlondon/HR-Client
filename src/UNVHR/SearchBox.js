@@ -4,9 +4,6 @@ import Select from 'react-select';
 import {searchUser} from './ApiConnector';
 import './SearchBox.css';
 
-
-
-
 export class SearchBox extends React.Component {
 	constructor(props) {
 		super(props);
@@ -51,7 +48,7 @@ export class SearchBox extends React.Component {
 		
 	}
 	gotoUser (value, event) {
-		window.open('/Employee/' + value.id);
+		window.open('/Employee/' + value.id, '_self');
 	}
 	toggleBackspaceRemoves () {
 		this.setState({
