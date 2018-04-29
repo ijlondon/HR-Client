@@ -188,7 +188,7 @@ export class Employee extends React.Component{
                 {this.state.buttonLabel}
               </button>
               
-              <button type="reset" value="Reset" id="cancelButton" className="cancelButton" onClick={this.terminateUser}>Cancel</button>
+              <button hidden={!this.state.canEditUser | this.state.buttonLabel == "Edit"} type="reset" value="Reset" id="cancelButton" className="cancelButton" onClick={this.terminateUser}>Cancel</button>
               
             </div>
             <div className="infoCard" >
@@ -231,7 +231,7 @@ export class Employee extends React.Component{
                     disabled={(this.state.disabled)? "disabled" : ""}
                     />
                 </div>
-                <div className="infoStyle" hidden={!this.state.canEditUser | this.state.buttonLabel == "Edit"} >
+                <div className="infoStyle" hidden={!this.state.canEditUser} >
                   <label className="label" > Salary </label>
                   <input className="inputField" type="text" name="salary" value={this.state.user.salary} placeholder="$1,000,000.00" disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/>
                 </div>
