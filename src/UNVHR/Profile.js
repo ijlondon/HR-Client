@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
-import { getUser } from './ApiConnector';
+import { getCurrentUserInfo } from './ApiConnector';
 import './Profile.css';
 
 export class Profile extends React.Component{
@@ -21,7 +21,7 @@ export class Profile extends React.Component{
 
   componentDidMount() {
     this.editButton = ReactDOM.findDOMNode(this.refs.editButton);
-    getUser('1')
+    getCurrentUserInfo()
     .then(data => {
       let user = data.data;
       this.setState({

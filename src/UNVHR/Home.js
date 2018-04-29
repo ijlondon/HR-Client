@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {listDepartments} from './ApiConnector';
+import {listDepartments, getDepartment} from './ApiConnector';
 import Select from 'react-select';
 import {Link} from 'react-router';
 import 'react-select/dist/react-select.css';
@@ -24,26 +24,13 @@ export class Home extends React.Component {
   componentDidMount() {
     listDepartments()
     .then(response => {
-      const departments = response.data.map((department, index) => {
+      const departments = response.data.map((department) => {
         const label = department.name;
-        const value = index;
-        
-        // Populate the displayed employees in the department
-        let employees = department.workers.map(worker => { return {
-          label: worker.lastName + ', ' + worker.firstName,
-          value: worker.id
-        }});
+        const value = department.id;
 
-        // Include the head in the department
-        employees.unshift({
-          label: department.head.lastName + ', ' + department.head.firstName,
-          value: department.head.id
-        });
-
-        return { label, value, employees }
+        return { label, value }
       });
       this.setState({ departments: departments });
-      console.log("state", this.state);
     });
   }
 
@@ -51,9 +38,23 @@ export class Home extends React.Component {
     // Update the displayed employee list
 		this.setState({
       currentDepartment: value,
-      employees: value.employees
     })
-	}
+    this.changeEmployees(value.value);
+  }
+  
+  changeEmployees(departmentId) {
+    getDepartment(departmentId)
+    .then(department => {
+      // Populate the displayed employees in the department
+      let employees = department.data.workers.map(worker => { return {
+        label: worker.lastName + ', ' + worker.firstName,
+        value: worker.id
+      }});
+      this.setState({
+        employees: employees
+      });
+    })
+  }
   
   onEmployeeChange(value) {
     this.setState({
@@ -72,7 +73,6 @@ export class Home extends React.Component {
                  options={this.state.departments}
                  onChange={this.onDepartmentChange}
                  value={this.state.currentDepartment}
-
               /> 
               <Select className="droplistStyle"
                  placeholder = "Choose Employee Name"

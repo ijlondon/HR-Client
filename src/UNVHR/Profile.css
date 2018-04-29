@@ -1,5 +1,5 @@
 .wrapProfile{
-    min-height: 120vh;
+    min-height: 110vh;
   }
   
 .photoStyle{
@@ -12,9 +12,9 @@
 }
 
 .nyIMG{
-    width: 400px;  
-    padding: 5px;
-    padding-left: 20px;
+    width: 420px;  
+    padding: 10px;
+    margin-left: 30px;
 }
 
 .headerStyle{
@@ -36,7 +36,6 @@
     display: inline-block;
   width: 800px;
   padding: 5px;
-  padding-left: 25px;
   text-align: left;
   background-color: white;
   margin: auto;
@@ -67,15 +66,14 @@
 .employeeCard{
     margin-left: 5px !important;
     display: inline-block;
-  width: 261.5px;
+  width: 258px;
   padding: 5px;
   padding-left: 25px;
   text-align: left;
   background-color: white;
   margin: auto;
-  margin-top: 20px;
-  border: 1px solid f0eeec;
-  box-shadow: 3px 3px gainsboro;
+  margin-top: 5px;
+  border: 1px solid #f0eeec;
   font-size: 20px;
 }
 
@@ -83,7 +81,7 @@
     display: inline-block;
     float: left;
     clear: left;
-    width: 120px;
+    width: 140px;
     text-align: left;
  }
  input{
@@ -105,6 +103,21 @@
 
   }
 
+  .selectField{
+    display: inline-block;
+    width: 400px;
+    height: 35px;
+    box-shadow: 0 3px 5px gainsboro;
+    border-radius: 5px;
+    text-align: Left;
+    font-size: 16px;
+    margin-left: 10px;
+  }
+
+  .Select-control {
+    border: 1px solid #f36e21;
+  }
+  
   .editButton{
     padding: 5px;
     height: 30px;
@@ -133,9 +146,34 @@
 
   .trmButton{
     padding: 5px;
+    height: 50px;
+    width: 150px;
+    background-color: red;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    border-radius: 8px;
+    -webkit-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    transition: background-color 0.5s;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .trmButton:hover{
+    background-color: gray;
+    color: white !important;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .cancelButton{
+    padding: 5px;
     height: 30px;
     width: 70px;
-    background-color: #f36e21;
+    background-color: #616161;
     border: none;
     color: white;
     text-align: center;
@@ -150,7 +188,7 @@
     margin: 5px;
   }
   
-  .trmButton:hover{
+  .cancelButton:hover{
     background-color: gray;
     color: white !important;
     text-decoration: none;
@@ -226,4 +264,8 @@
   height: 120px;
   margin: auto;
   display: block;
+}
+
+.salaryEST{
+  margin-left: 150px;
 }

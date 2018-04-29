@@ -1,4 +1,5 @@
 import {getCurrentUser} from './UserService';
+import { func } from 'prop-types';
 
 const apiRoot = process.env.REACT_APP_API_HOST;
 
@@ -11,7 +12,7 @@ function makeApiGetRequest(endpoint) {
     },
   };
   if (getCurrentUser()) {
-    init.headers['Authorization'] = 'Bearer ' + getCurrentUser().accessToken;
+    init.headers['Authorization'] = getCurrentUser().accessToken;
   }
   return fetch(apiRoot + endpoint, init)
     .then(results => { return results.json() });
@@ -19,6 +20,16 @@ function makeApiGetRequest(endpoint) {
 
 export function getUser(userId) {
   const endpoint = 'employee/' + userId;
+  return makeApiGetRequest(endpoint);
+}
+
+export function canEditEmployee(userId) {
+  const endpoint = 'employee/canEdit?toModifyId=' + userId;
+  return makeApiGetRequest(endpoint);
+}
+
+export function getCurrentUserInfo() {
+  const endpoint = 'employee/userInfo';
   return makeApiGetRequest(endpoint);
 }
 
@@ -48,7 +59,7 @@ function makeApiPostRequest(endpoint, body) {
     body: JSON.stringify(body)
   };
   if (getCurrentUser()) {
-    init.headers['Authorization'] = 'Bearer ' + getCurrentUser().accessToken;
+    init.headers['Authorization'] = getCurrentUser().accessToken;
   }
   return fetch(url, init)
     .then(results => { return results.json() });
@@ -57,6 +68,11 @@ function makeApiPostRequest(endpoint, body) {
 export function editEmployee(employee) {
   const endpoint = 'employee/' + employee.id + '/edit';
   return makeApiPostRequest(endpoint, employee);
+}
+
+export function editDepartment(department) {
+  const endpoint = 'department/' + department.id + '/edit';
+  return makeApiPostRequest(endpoint, department);
 }
 
 export function terminateEmployee(employee) {
