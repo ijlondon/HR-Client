@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Select from 'react-select';
 import { Link } from 'react-router';
-import { getUser, editEmployee, listDepartments, terminateEmployee} from './ApiConnector';
+import { getUser, editEmployee, listDepartments, terminateEmployee, canEditEmployee } from './ApiConnector';
 import JobList from './occupations.json';
 import './Profile.css';
 
@@ -18,6 +18,7 @@ export class Employee extends React.Component{
       currentJob: null,
       disabled: true,
       salary_estimate: 0,
+      canEditUser: false,
       buttonLabel: "Edit" // initial state
     }
 
@@ -29,10 +30,6 @@ export class Employee extends React.Component{
       {
         label: 'Last Name',
         field: 'lastName',
-      },
-      {
-        label: 'Email',
-        field: 'email',
       },
       {
         label: 'Phone',
@@ -74,19 +71,16 @@ export class Employee extends React.Component{
   }
 
   componentDidMount() {
-    this.editButton = ReactDOM.findDOMNode(this.refs.editButton);
-
     listDepartments()
     .then(response => {
       this.setState({ departments: response.data });
     });
 
-    const jobs = JobList.map((job, index) => { return {
+    const jobs = JobList.map(job => { return {
       label: job.OccupationalTitle,
       value: job
     }});
     this.setState({ jobs: jobs });
-
     this.updateUser();
   }
 
@@ -150,6 +144,10 @@ export class Employee extends React.Component{
           currentJob: {label: user.jobTitle},
         });
         this.getSalary();
+        canEditEmployee(user.id)
+        .then(data => {
+          this.setState({canEditUser: data.data})
+        });
       });
     }
   }
@@ -182,8 +180,8 @@ export class Employee extends React.Component{
             </div>
             <div className="headerStyle" >
               {this.state.user.firstName + "'s Personal Information" }
-              <button className="trmButton" onClick={this.terminateUser}>Terminate</button>
-              <button className="editButton" onClick = {this.toggleEdit}>
+              <button hidden={!this.state.canEditUser} className="trmButton" onClick={this.terminateUser}>Terminate</button>
+              <button hidden={!this.state.canEditUser} className="editButton" onClick = {this.toggleEdit}>
                 {this.state.buttonLabel}
               </button>
             </div>
@@ -194,6 +192,10 @@ export class Employee extends React.Component{
                 <input className="inputField" type="text" name={field.field} value={this.state.user[field.field]} disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/>
               </div>
               )})}
+              <div className="infoStyle" >
+                <label className="label" > Email </label>
+                {this.state.user.email}
+              </div>
             </div>
             <div className="alignMe" >
               <div className="headerStyle" >
@@ -223,7 +225,7 @@ export class Employee extends React.Component{
                     disabled={(this.state.disabled)? "disabled" : ""}
                     />
                 </div>
-                <div className="infoStyle" >
+                <div className="infoStyle" hidden={!this.state.canEditUser} >
                   <label className="label" > Salary </label>
                   <input className="inputField" type="text" name="salary" value={this.state.user.salary} placeholder="$1,000,000.00" disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/>
                 </div>

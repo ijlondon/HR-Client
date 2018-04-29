@@ -23,6 +23,11 @@ export function getUser(userId) {
   return makeApiGetRequest(endpoint);
 }
 
+export function canEditEmployee(userId) {
+  const endpoint = 'employee/canEdit?toModifyId=' + userId;
+  return makeApiGetRequest(endpoint);
+}
+
 export function getCurrentUserInfo() {
   const endpoint = 'employee/userInfo';
   return makeApiGetRequest(endpoint);
