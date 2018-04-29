@@ -18,12 +18,7 @@ export class Login extends React.Component{
   render() {
     if (this.state.loggedIn) {
       return (
-        <GoogleLogout
-          buttonText="Logout"
-          onLogoutSuccess={handleLogout}
-          className="LogBTN"
-        >
-        </GoogleLogout>
+        <button onClick={handleLogout} className="LogBTN"> Logout </button>
       )
     } else {
       return (
