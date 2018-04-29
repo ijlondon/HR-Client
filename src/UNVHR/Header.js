@@ -10,6 +10,7 @@ import {
   NavLink,
   UncontrolledDropdown,
   Dropdown,
+    ButtonDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
@@ -65,8 +66,6 @@ import { Button, ButtonGroup } from 'reactstrap';
                         <img src={logo} style={{width:60, marginTop: -7, padding:'5px'}} />
                     </NavbarBrand>
 
-                    {/*<SearchBox className="SearchBox" style={{width: 30}} />*/}
-
                     <div className="userNameStyle1" >
 
                         {getCurrentUser() ? 'Hello, ' + getCurrentUser().w3.ig : ''}
@@ -87,15 +86,20 @@ import { Button, ButtonGroup } from 'reactstrap';
           </Media>
 
               <Media query="(max-width: 599px)">
-                  <Row>
+                  {/*<Row style={{display: 'flex', justifyContent: 'center'}}>*/}
 
-                      <ButtonGroup size="lg" vertical block="true" className="bttnGRPSM" >
 
-                      <Button href="/Home">Find an Employee</Button>
-                      <Button href="/Departments">Departments</Button>
-                      <Button href="/Profile">Profile</Button>
-                  </ButtonGroup>
-                  </Row>
+                      <ButtonGroup size="lg" vertical ="true" className="bttnGRPSM"  style={{display: 'flex', justifyContent: 'center'}} >
+
+                          <Button href="/Home">Find an Employee</Button>
+                          <Button href="/Departments">Departments</Button>
+                          <Button href="/Profile">Profile</Button>
+                          {/*<Button><SearchBox style={{}}>Search</SearchBox></Button>*/}
+
+                      </ButtonGroup>
+
+                  {/*</Row>*/}
+
               </Media>
           </div>       
           
