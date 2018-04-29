@@ -29,18 +29,12 @@ import { Button, ButtonGroup } from 'reactstrap';
       return (
         <div>
           <Navbar color="faded" light expand="md">
-
-            
-
-             <NavbarBrand href="/Home">
-                
+             <NavbarBrand href="/">
                 <img src={logo} style={{width:60, marginTop: -7, padding:'5px'}} />
                 Human Resources 
             </NavbarBrand>
 
             <SearchBox className="SearchBox" />  
-
-            
             
             <div className="userNameStyle1">
             
