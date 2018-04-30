@@ -34,33 +34,36 @@ import { Button, ButtonGroup } from 'reactstrap';
     render() {
       return (
         <div>
-            <Media query="(min-width: 371px)">
+            <Media query="(min-width: 920px)">
+          <Navbar color="faded" light expand="md" >
+
+
+
+             <NavItem><NavbarBrand href="/Home">
+
+                <img src={logo} style={{width:60, marginTop: -7, padding:'5px'}} />
+                Human Resources
+             </NavbarBrand></NavItem>
+
+
+              <SearchBox className="SearchBox" />
+
+              <div className="userNameStyle1" >
+
+              {getCurrentUser() ? 'Hello, ' + getCurrentUser().w3.ig : ''}
+
+              <Login/>
+              </div>
+
+          </Navbar>
+            </Media>
+
+            <Media query="(max-width: 919px)">
                 <Navbar color="faded" light expand="md">
-
-
 
                     <NavbarBrand href="/Home">
                         <img src={logo} style={{width:60, marginTop: -7, padding:'5px'}} />
                         HR
-                    </NavbarBrand>
-
-                    <div className="userNameStyle1" >
-
-                        {getCurrentUser() ? getCurrentUser().w3.ig : ''}
-
-                        <Login/>
-                    </div>
-
-                </Navbar>
-            </Media>
-
-            <Media query="(max-width: 370px) ">
-                <Navbar color="faded" light expand="md">
-
-
-
-                    <NavbarBrand href="/Home">
-                        <img src={logo} style={{width:60, marginTop: -7, padding:'5px'}} />
                     </NavbarBrand>
 
                     <div className="userNameStyle1" >
