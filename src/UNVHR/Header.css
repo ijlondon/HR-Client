@@ -20,6 +20,7 @@ a:hover{
 .navbar{
   background: #333;
   width: 100%;
+  margin: auto;
 }
 
 .navbar-light .navbar-brand{
@@ -76,24 +77,15 @@ a:hover{
 
 .buttonGRP{
   margin: auto;
-  width: 610px;
   margin-top: 20px;
+}
+
+.buttonGRPL{
+  width: 610px;
+  margin: auto;
 }
 
 .bttnGRPSM{
-  /*margin: auto;*/
-  /*width: 610px;*/
+  margin: auto;
   margin-top: 20px;
-  /*margin-left: 185px;*/
-  /*margin-right: 185px;*/
-}
-
-.menuItem {
-  display:inline-block;
-  /*display:table;*/
-  margin:0 auto 0 auto;
-
-  list-style-type: none;
-  /*margin: 4px;*/
-  padding: 2px;
 }

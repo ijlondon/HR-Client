@@ -58,19 +58,19 @@ import { Button, ButtonGroup } from 'reactstrap';
           </Navbar>
             </Media>
 
-            <Media query="(max-width: 919px)">
+            <Media query="(min-width: 371px)">
                 <Navbar color="faded" light expand="md">
 
 
 
                     <NavbarBrand href="/Home">
                         <img src={logo} style={{width:60, marginTop: -7, padding:'5px'}} />
-                        Human Resources
+                        HR
                     </NavbarBrand>
 
                     <div className="userNameStyle1" >
 
-                        {getCurrentUser() ? 'Hello, ' + getCurrentUser().w3.ig : ''}
+                        {getCurrentUser() ? getCurrentUser().w3.ig : ''}
 
                         <Login/>
                     </div>
@@ -78,33 +78,51 @@ import { Button, ButtonGroup } from 'reactstrap';
                 </Navbar>
             </Media>
 
+            <Media query="(max-width: 370px) ">
+                <Navbar color="faded" light expand="md">
+
+
+
+                    <NavbarBrand href="/Home">
+                        <img src={logo} style={{width:60, marginTop: -7, padding:'5px'}} />
+                    </NavbarBrand>
+
+                    <div className="userNameStyle1" >
+
+                        {getCurrentUser() ? getCurrentUser().w3.ig : ''}
+
+                        <Login/>
+                    </div>
+
+                </Navbar>
+            </Media>
+
+
+
           <div className="buttonGRP">
-          <Media query="(min-width: 600px)">
-              <ButtonGroup size="lg" justified="true">
+          <Media query="(min-width: 920px)">
+             <div className="buttonGRPL">
+              <ButtonGroup size="lg">
                   <Button href="/Home">Find an Employee</Button>
                   <Button href="/Departments">Departments</Button>
                   <Button href="/Profile">Profile</Button>
               </ButtonGroup>
+             </div>
           </Media>
 
-              <Media query="(max-width: 599px)">
-                  {/*<Row style={{display: 'flex', justifyContent: 'center'}}>*/}
-
-
+              <Media query="(max-width: 919px)">
                       <ButtonGroup size="lg" vertical ="true" className="bttnGRPSM"  style={{display: 'flex', justifyContent: 'center'}} >
 
                           <Button href="/Home">Find an Employee</Button>
                           <Button href="/Departments">Departments</Button>
                           <Button href="/Profile">Profile</Button>
-                          {/*<Button><SearchBox style={{}}>Search</SearchBox></Button>*/}
 
                       </ButtonGroup>
 
-                  {/*</Row>*/}
 
               </Media>
-          </div>       
-          
+          </div>
+
         </div>
       );
     }
