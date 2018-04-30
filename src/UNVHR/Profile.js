@@ -100,8 +100,6 @@ export class Profile extends React.Component{
     return (
         <div className="wrapProfile" >
             <div>
-              <div><img alt="Your profile" className="photoStyle" src={require('./profile.png')} />
-              </div>
               <div className="headerStyle" >
                 Your Personal Information
                 <button className="editButton" onClick = {this.toggleEdit}>

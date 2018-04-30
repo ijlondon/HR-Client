@@ -1,12 +1,11 @@
 .wrapProfile{
     min-height: 110vh;
-  }
+}
   
 .photoStyle{
     width: 200px;
     height: 200px;
     margin: 20px;
-    margin-left: 220px;
     float: left;
 
 }
@@ -18,7 +17,6 @@
 }
 
 .headerStyle{
-  display: inline-block;
   width: 800px;
   padding: 5px;
   padding-left: 25px;
@@ -33,7 +31,6 @@
 }
 
 .infoCard{
-    display: inline-block;
   width: 800px;
   padding: 5px;
   text-align: left;
@@ -46,7 +43,7 @@
 }
 
 .infoCard2{
-    display: inline-block;
+  display: inline-block;
   width: 800px;
   padding: 0px;
   padding-left: 0px;
@@ -221,9 +218,6 @@
     cursor: pointer;
   }
 
-  .alignMe{
-      margin-left: 440px;
-  }
 
   .employeeName{
       text-align: center;

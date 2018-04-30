@@ -208,9 +208,6 @@ export class Employee extends React.Component{
     return (
         <div className="wrapProfile" >
           <div>
-            <div>
-                <img className="photoStyle" src={require('./profile.png')} />
-            </div>
             <div className="headerStyle" >
               {this.state.user.firstName + "'s Personal Information" }
               <button hidden={!this.state.canEditUser} id="editButton" className="editButton" onClick = {this.toggleEdit}>
