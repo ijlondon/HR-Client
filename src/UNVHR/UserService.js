@@ -11,6 +11,14 @@ export function handleLogout(response) {
 }
 
 export function getCurrentUser() {
+  if (localStorage.getItem(userInfoKey)) {
+    const userInfo = JSON.parse(localStorage.getItem(userInfoKey));
+    const expirationDate = userInfo.tokenObj.expires_at;
+    const currentDate = new Date().getTime();
+    if (currentDate >= expirationDate) {
+      handleLogout();
+    }
+  }
   return localStorage.getItem(userInfoKey) ? JSON.parse(localStorage.getItem(userInfoKey)) : null;
 }
 
