@@ -20,6 +20,7 @@ a:hover{
 .navbar{
   background: #333;
   width: 100%;
+  margin: auto;
 }
 
 .navbar-light .navbar-brand{
@@ -43,12 +44,16 @@ a:hover{
   color: white;
   font-size: 16px;
   cursor: default;
-  
-
 }
 
 .SearchBox{
   margin-top: 10px;
+  position: relative;
+}
+
+.SearchBox1{
+  margin-top: 10px;
+  width: max-content;
 }
 
 .form-control {
@@ -67,10 +72,20 @@ a:hover{
   background-color: #333;
   border-color: #333;
   margin-right: 5px;
+  width: 200px;
 }
 
 .buttonGRP{
   margin: auto;
-  width: 435px;
+  margin-top: 20px;
+}
+
+.buttonGRPL{
+  width: 50%;
+  margin: auto;
+}
+
+.bttnGRPSM{
+  margin: auto;
   margin-top: 20px;
 }
