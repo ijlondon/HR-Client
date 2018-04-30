@@ -42,6 +42,11 @@ export function listDepartments() {
   return makeApiGetRequest(endpoint);
 }
 
+export function listEmployees() {
+  const endpoint = 'employee';
+  return makeApiGetRequest(endpoint);
+}
+
 export function searchUser(query) {
   const endpoint = 'employee/search?toSearch=' + query;
   return makeApiGetRequest(endpoint);
