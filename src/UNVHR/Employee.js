@@ -101,8 +101,7 @@ export class Employee extends React.Component{
 
   getSalary() {
     let user = this.state.user
-    // Uncomment line below for working example
-    // user.jobTitle = "Computer Programmers"
+    // Check for jobTitle
     if (user.jobTitle == null) {
       return;
     }
