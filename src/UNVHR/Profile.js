@@ -133,7 +133,7 @@ export class Profile extends React.Component{
                   </div>
                   <div className="infoStyle" >
                     <label className="label" > Boss </label>
-                    <div className="salaryEST" > {this.state.bossName} </div>
+                    <div className="salaryEST" > {this.state.bossName || 'Not Applicable'} </div>
                   </div>
                   <div className="infoStyle" >
                     <label className="label" > Salary </label>

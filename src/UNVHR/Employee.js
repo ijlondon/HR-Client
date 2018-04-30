@@ -162,7 +162,7 @@ export class Employee extends React.Component{
       .then(data => {
         let user = data.data;
         let boss = user.boss;
-        boss.name = boss.firstName + " " + boss.lastName;
+        boss.name = (boss.firstName || 'Not') + " " + (boss.lastName || 'Applicable');
         this.setState({
           user: user,
           employees: user.workers,
