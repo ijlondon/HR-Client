@@ -45,9 +45,8 @@ export class Profile extends React.Component{
         user: user,
         employees: user.workers,
         departmentName: user.department.name,
-        currentBoss: user.boss
+        bossName: user.boss.firstName + ' ' + user.boss.lastName
       });
-      // let salary_estimate = this.state.salary_estimate
       this.getSalary()
       console.log("state", this.state);
     });
@@ -77,7 +76,7 @@ export class Profile extends React.Component{
     }).then( res => {
         var sal = 1000000
         // If API returns successfully, overwrite default value with result
-        if (res.length != 0) {
+        if (res.length !== 0) {
           sal = Number(res[0].mean);
         }
         // Format salary to be readable
@@ -101,7 +100,7 @@ export class Profile extends React.Component{
     return (
         <div className="wrapProfile" >
             <div>
-              <div><img  className="photoStyle" src={require('./profile.png')} />
+              <div><img alt="Your profile picture" className="photoStyle" src={require('./profile.png')} />
               </div>
               <div className="headerStyle" >
                 Your Personal Information
@@ -135,6 +134,10 @@ export class Profile extends React.Component{
                     <div className="salaryEST" > {this.state.departmentName} </div>
                   </div>
                   <div className="infoStyle" >
+                    <label className="label" > Boss </label>
+                    <div className="salaryEST" > {this.state.bossName} </div>
+                  </div>
+                  <div className="infoStyle" >
                     <label className="label" > Salary </label>
                     <div className="salaryEST" >{this.state.user.salary}</div>
                   </div>
@@ -142,7 +145,7 @@ export class Profile extends React.Component{
                     <label className="label" > Salary Estimate </label>
                     <div className="salaryEST" >{this.state.salary_estimate}</div>
                   </div>
-                  <a href="https://www.its.ny.gov">Powered by <img className="nyIMG"  src="https://data.ny.gov/api/assets/24867D9C-004D-4A57-80CA-6757C009D140"></img></a>
+                  <a href="https://www.its.ny.gov">Powered by <img alt="New York State of Opportunity | Office of Information Technology Services" className="nyIMG"  src="https://data.ny.gov/api/assets/24867D9C-004D-4A57-80CA-6757C009D140"></img></a>
                 </div>
               </div>
               <div className="alignMe" >
