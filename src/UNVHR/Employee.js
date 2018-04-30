@@ -21,10 +21,7 @@ export class Employee extends React.Component{
       canEditUser: false,
       buttonLabel: "Edit" // initial state
     }
-
     
-    
-
     this.personalFields = [
       {
         label: 'First Name',
@@ -199,7 +196,7 @@ export class Employee extends React.Component{
               )})}
               <div className="infoStyle" >
                 <label className="label" > Email </label>
-                {this.state.user.email}
+                <div className="salaryEST" >{this.state.user.email}</div>
               </div>
             </div>
             <div className="alignMe" >
