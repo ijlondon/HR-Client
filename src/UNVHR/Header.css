@@ -76,13 +76,12 @@ a:hover{
 }
 
 .buttonGRP{
-  margin: auto;
   margin-top: 20px;
+  text-align: center;
 }
 
 .buttonGRPL{
-  width: 50%;
-  margin: auto;
+  display: inline-block;
 }
 
 .bttnGRPSM{
