@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
-import { getCurrentUserInfo } from './ApiConnector';
+import { getCurrentUserInfo, editEmployee } from './ApiConnector';
 import './Profile.css';
 
 export class Profile extends React.Component{
@@ -14,9 +14,26 @@ export class Profile extends React.Component{
       employees: [],
       disabled: true,
       salary_estimate: 0,
-      buttonLabel: "Edit" // inital state
+      buttonLabel: "Edit" // initial state
     }
-    this.enableEdit = this.enableEdit.bind(this);
+
+    this.personalFields = [
+      {
+        label: 'First Name',
+        field: 'firstName',
+      },
+      {
+        label: 'Last Name',
+        field: 'lastName',
+      },
+      {
+        label: 'Phone',
+        field: 'telephone',
+      },
+    ];
+    
+    this.toggleEdit = this.toggleEdit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -27,17 +44,29 @@ export class Profile extends React.Component{
       this.setState({
         user: user,
         employees: user.workers,
+        departmentName: user.department.name,
+        currentBoss: user.boss
       });
       // let salary_estimate = this.state.salary_estimate
       this.getSalary()
       console.log("state", this.state);
     });
   }
+  
+  handleChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    const user = this.state.user;
+    user[name] = value;
+
+    this.setState({ user: user });
+  }
 
   getSalary() {
     let user = this.state.user
-    // Uncomment line below for working example
-    // user.jobTitle = "Computer Programmers"
+    // Query salary api
     var url = 'https://data.ny.gov/resource/tn4j-d3nf.json?area=36&occupational_title=' + user.jobTitle
     // If user has a null jobTitle, allow html placeholder to fill instead of API
     if (user.jobTitle == null) {
@@ -58,10 +87,13 @@ export class Profile extends React.Component{
       });
   }
 
-  enableEdit() {
+  toggleEdit() {
+    if (this.state.buttonLabel === "Save") {
+      editEmployee(this.state.user);
+    }
     this.setState({
       disabled: !this.state.disabled,
-      buttonLabel:"Save" // update it here
+      buttonLabel: this.state.buttonLabel === "Edit" ? "Save" : "Edit" // update it here
     })
   }
 
@@ -73,30 +105,20 @@ export class Profile extends React.Component{
               </div>
               <div className="headerStyle" >
                 Your Personal Information
-                <button className="editButton" onClick = {this.enableEdit}>
+                <button className="editButton" onClick = {this.toggleEdit}>
                   {this.state.buttonLabel}
                 </button>
               </div>
               <div className="infoCard" >
-              <div className="infoStyle" >
-                  <label className="label" > First Name </label>
-                  <input className="inputField" type="text" name="fname" value={this.state.user.firstName} disabled = {(this.state.disabled)? "disabled" : ""}/>
-                </div>
-                <div className="infoStyle" >
-                  <label className="label" > Last Name </label>
-                  <input className="inputField" type="text" name="lname" value={this.state.user.lastName} disabled = {(this.state.disabled)? "disabled" : ""}/>
-                </div>
-                <div className="infoStyle" >
-                  <label className="label" > Address </label>
-                  <input className="inputField" type="text" name="address" value={this.state.user.address.street} placeholder="1 Lomb Memorial Dr, Rochester, NY 14623" disabled = {(this.state.disabled)? "disabled" : ""}/>
-                </div>
+                {this.personalFields.map(field => { return (
+                  <div className="infoStyle" >
+                    <label className="label" > {field.label} </label>
+                    <input className="inputField" type="text" name={field.field} value={this.state.user[field.field]} onChange={this.handleChange} disabled = {(this.state.disabled)? "disabled" : ""}/>
+                  </div>
+                )})}
                 <div className="infoStyle" >
                   <label className="label" > Email </label>
-                  <input className="inputField" type="text" name="email" value={this.state.user.email} placeholder="DanKrutz@krutz.com" disabled = {(this.state.disabled)? "disabled" : ""}/>
-                </div>
-                <div className="infoStyle" >
-                  <label className="label" > Phone </label>
-                  <input className="inputField" type="text" name="phone"  value={this.state.user.telephone} placeholder="(585)-123-4567" disabled = {(this.state.disabled)? "disabled" : ""}/>
+                  <div className="salaryEST" >{this.state.user.email}</div>
                 </div>
               </div>
               <div className="alignMe" >
@@ -106,19 +128,19 @@ export class Profile extends React.Component{
                 <div className="infoCard" >
                   <div className="infoStyle" >
                     <label className="label" > Job Title </label>
-                    <input className="inputField" type="text" name="lname" placeholder="Assistant Professor" disabled />
+                    <div className="salaryEST" >{this.state.user.jobTitle}</div>
                   </div>
                   <div className="infoStyle" >
                     <label className="label" > Department </label>
-                    <input className="inputField" type="text" name="lname" placeholder="Software Engineering" disabled />
+                    <div className="salaryEST" > {this.state.departmentName} </div>
                   </div>
                   <div className="infoStyle" >
                     <label className="label" > Salary </label>
-                    <input className="inputField" type="text" name="lname" value={this.state.user.salary} placeholder="$1,000,000.00" disabled />
+                    <div className="salaryEST" >{this.state.user.salary}</div>
                   </div>
                   <div className="infoStyle" >
                     <label className="label" > Salary Estimate </label>
-                    <input className="inputField" type="text" name="lname" value={this.state.salary_estimate} placeholder="$1,000,000.00" disabled />
+                    <div className="salaryEST" >{this.state.salary_estimate}</div>
                   </div>
                   <a href="https://www.its.ny.gov">Powered by <img className="nyIMG"  src="https://data.ny.gov/api/assets/24867D9C-004D-4A57-80CA-6757C009D140"></img></a>
                 </div>

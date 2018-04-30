@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Select from 'react-select';
 import { Link } from 'react-router';
-import { getUser, editEmployee, listDepartments, terminateEmployee, canEditEmployee } from './ApiConnector';
+import { getUser, editEmployee, listDepartments, listEmployees, terminateEmployee, canEditEmployee } from './ApiConnector';
 import JobList from './occupations.json';
 import './Profile.css';
 
@@ -14,17 +14,16 @@ export class Employee extends React.Component{
       jobs: [],
       user: {},
       employees: [],
+      bosses: [],
       currentDepartment: null,
       currentJob: null,
+      currentBoss: null,
       disabled: true,
       salary_estimate: 0,
       canEditUser: false,
       buttonLabel: "Edit" // initial state
     }
-
     
-    
-
     this.personalFields = [
       {
         label: 'First Name',
@@ -53,12 +52,17 @@ export class Employee extends React.Component{
         label: 'Salary',
         field: 'salary',
       },
+      {
+        label: 'Boss',
+        field: 'boss',
+      },
     ];
 
     this.toggleEdit = this.toggleEdit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.onDepartmentChange = this.onDepartmentChange.bind(this);
     this.onJobChange = this.onJobChange.bind(this);
+    this.onBossChange = this.onBossChange.bind(this);
     this.terminateUser = this.terminateUser.bind(this);
   }
 
@@ -77,6 +81,18 @@ export class Employee extends React.Component{
     listDepartments()
     .then(response => {
       this.setState({ departments: response.data });
+    });
+
+    listEmployees()
+    .then(response => {
+      let bosses = response.data.map((boss) => {
+        const name = boss.firstName + " " + boss.lastName;
+        const id = boss.id;
+        return { id, name }
+        });
+        bosses.sort((a, b) => a.id - b.id);
+        bosses = bosses.filter(i => i.id != this.state.user.id);
+      this.setState({ bosses: bosses });
     });
 
     const jobs = JobList.map(job => { return {
@@ -99,10 +115,15 @@ export class Employee extends React.Component{
     });
   }
 
+  onBossChange(value) {
+    this.setState({
+      currentBoss: value
+    });
+  }
+
   getSalary() {
     let user = this.state.user
-    // Uncomment line below for working example
-    // user.jobTitle = "Computer Programmers"
+    // Check for jobTitle
     if (user.jobTitle == null) {
       return;
     }
@@ -140,11 +161,14 @@ export class Employee extends React.Component{
       getUser(this.props.params['employeeId'])
       .then(data => {
         let user = data.data;
+        let boss = user.boss;
+        boss.name = boss.firstName + " " + boss.lastName;
         this.setState({
           user: user,
           employees: user.workers,
           currentDepartment: user.department,
           currentJob: {label: user.jobTitle},
+          currentBoss: boss,
         });
         this.getSalary();
         canEditEmployee(user.id)
@@ -160,11 +184,16 @@ export class Employee extends React.Component{
       .then(console.log('user terminated'));
   }
 
+  refresh(){ 
+    window.location.reload(); 
+  }
+
   toggleEdit() {
     if (!this.state.disabled) {
       let newUser = this.state.user;
       newUser.department = this.state.currentDepartment;
       newUser.jobTitle = this.state.currentJob.label;
+      newUser.boss.id = this.state.currentBoss.id;
       editEmployee(newUser)
       .then(response => console.log(response));
     }
@@ -187,9 +216,7 @@ export class Employee extends React.Component{
               <button hidden={!this.state.canEditUser} id="editButton" className="editButton" onClick = {this.toggleEdit}>
                 {this.state.buttonLabel}
               </button>
-              
-              <button hidden={!this.state.canEditUser | this.state.buttonLabel == "Edit"} type="reset" value="Reset" id="cancelButton" className="cancelButton" onClick={this.terminateUser}>Cancel</button>
-              
+              <button hidden={!this.state.canEditUser | this.state.buttonLabel == "Edit"} type="reset" value="Reset" id="cancelButton" className="cancelButton" onClick={this.refresh}>Cancel</button>
             </div>
             <div className="infoCard" >
               {this.personalFields.map(field => { return(
@@ -200,7 +227,7 @@ export class Employee extends React.Component{
               )})}
               <div className="infoStyle" >
                 <label className="label" > Email </label>
-                {this.state.user.email}
+                <div className="salaryEST" >{this.state.user.email}</div>
               </div>
             </div>
             <div className="alignMe" >
@@ -226,6 +253,17 @@ export class Employee extends React.Component{
                     options={this.state.departments}
                     onChange={this.onDepartmentChange}
                     value={this.state.currentDepartment}
+                    valueKey="id"
+                    labelKey="name"
+                    disabled={(this.state.disabled)? "disabled" : ""}
+                    />
+                </div>
+                <div className="infoStyle" >
+                  <label className="label" > Boss </label>
+                  <Select className="selectField"
+                    options={this.state.bosses}
+                    onChange={this.onBossChange}
+                    value={this.state.currentBoss}
                     valueKey="id"
                     labelKey="name"
                     disabled={(this.state.disabled)? "disabled" : ""}

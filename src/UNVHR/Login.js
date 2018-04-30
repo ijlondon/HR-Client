@@ -1,5 +1,5 @@
 import React from 'react';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { GoogleLogin } from 'react-google-login';
 import { getCurrentUser, handleLogin, handleLogout } from './UserService';
 import './Login.css';
 
@@ -18,12 +18,7 @@ export class Login extends React.Component{
   render() {
     if (this.state.loggedIn) {
       return (
-        <GoogleLogout
-          buttonText="Logout"
-          onLogoutSuccess={handleLogout}
-          className="LogBTN"
-        >
-        </GoogleLogout>
+        <button onClick={handleLogout} className="LogBTN"> Logout </button>
       )
     } else {
       return (

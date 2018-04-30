@@ -1,4 +1,3 @@
-.parent {
-    padding: 70px 0;
-    text-align: center;
-}
+.wrapper {
+    min-height: 81.7vh;
+  }
