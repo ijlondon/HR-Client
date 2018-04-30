@@ -1,5 +1,4 @@
 import {getCurrentUser} from './UserService';
-import { func } from 'prop-types';
 
 const apiRoot = process.env.REACT_APP_API_HOST;
 

@@ -66,3 +66,9 @@ html, body {
   cursor: pointer;
 }
 
+.searchButton:disabled{
+  background-color: gray;
+  color: white !important;
+  text-decoration: none;
+  cursor: not-allowed;
+}
