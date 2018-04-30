@@ -96,6 +96,13 @@ export class Profile extends React.Component{
     })
   }
 
+  prettySalary(sal) {
+    sal = Number(sal);
+    sal = sal.toLocaleString();
+    sal = "$" + sal + ".00";
+    return sal;
+  }
+
   render(){
     return (
         <div className="wrapProfile" >
@@ -137,7 +144,7 @@ export class Profile extends React.Component{
                   </div>
                   <div className="infoStyle" >
                     <label className="label" > Salary </label>
-                    <div className="salaryEST" >{this.state.user.salary}</div>
+                    <div className="salaryEST" >{this.prettySalary(this.state.user.salary)}</div>
                   </div>
                   <div className="infoStyle" >
                     <label className="label" > Salary Estimate </label>

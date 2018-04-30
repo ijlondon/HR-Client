@@ -181,7 +181,7 @@ export class Employee extends React.Component{
 
   terminateUser() {
     terminateEmployee(this.state.user)
-      .then(console.log('user terminated'));
+    .then(window.location.replace("/Profile"));
   }
 
   refresh(){ 
@@ -298,7 +298,7 @@ export class Employee extends React.Component{
             </div>
 
           </div>
-          <div className="alignMe" >
+          <div className="trm" >
           <button hidden={!this.state.canEditUser | this.state.buttonLabel == "Edit"} id="trmButton" className="trmButton" onClick={this.terminateUser}>Terminate User</button>
           </div>
 
