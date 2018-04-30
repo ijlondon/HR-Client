@@ -6,7 +6,6 @@ export function handleLogin(response) {
 }
 
 export function handleLogout(response) {
-  console.log(response);
   localStorage.removeItem(userInfoKey);
   window.location.reload()
 }

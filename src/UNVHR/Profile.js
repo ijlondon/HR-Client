@@ -100,7 +100,7 @@ export class Profile extends React.Component{
     return (
         <div className="wrapProfile" >
             <div>
-              <div><img alt="Your profile picture" className="photoStyle" src={require('./profile.png')} />
+              <div><img alt="Your profile" className="photoStyle" src={require('./profile.png')} />
               </div>
               <div className="headerStyle" >
                 Your Personal Information
@@ -155,7 +155,7 @@ export class Profile extends React.Component{
                 <div className="infoCard">
                   {this.state.employees.map(employee => { return(
                     <div className="employeeCard" >
-                      <img className="employeeAvatar" src={require('./profile.png')} />
+                      <img alt={employee.firstName + '\'s Profile'} className="employeeAvatar" src={require('./profile.png')} />
                       <p className="employeeName" >{employee.firstName} {employee.lastName}</p>
                       <Link to={`/Employee/${employee.id}`}>
                         <button className="viewButton">
