@@ -1,5 +1,4 @@
 import {getCurrentUser} from './UserService';
-import { func } from 'prop-types';
 
 const apiRoot = process.env.REACT_APP_API_HOST;
 
@@ -23,6 +22,11 @@ export function getUser(userId) {
   return makeApiGetRequest(endpoint);
 }
 
+export function canEditEmployee(userId) {
+  const endpoint = 'employee/canEdit?toModifyId=' + userId;
+  return makeApiGetRequest(endpoint);
+}
+
 export function getCurrentUserInfo() {
   const endpoint = 'employee/userInfo';
   return makeApiGetRequest(endpoint);
@@ -35,6 +39,11 @@ export function getDepartment(departmentId) {
 
 export function listDepartments() {
   const endpoint = 'department';
+  return makeApiGetRequest(endpoint);
+}
+
+export function listEmployees() {
+  const endpoint = 'employee';
   return makeApiGetRequest(endpoint);
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Select from 'react-select';
 import { Link } from 'react-router';
-import { getUser, editEmployee, listDepartments, terminateEmployee} from './ApiConnector';
+import { getUser, editEmployee, listDepartments, listEmployees, terminateEmployee, canEditEmployee } from './ApiConnector';
 import JobList from './occupations.json';
 import './Profile.css';
 
@@ -14,13 +14,16 @@ export class Employee extends React.Component{
       jobs: [],
       user: {},
       employees: [],
+      bosses: [],
       currentDepartment: null,
       currentJob: null,
+      currentBoss: null,
       disabled: true,
       salary_estimate: 0,
+      canEditUser: false,
       buttonLabel: "Edit" // initial state
     }
-
+    
     this.personalFields = [
       {
         label: 'First Name',
@@ -29,10 +32,6 @@ export class Employee extends React.Component{
       {
         label: 'Last Name',
         field: 'lastName',
-      },
-      {
-        label: 'Email',
-        field: 'email',
       },
       {
         label: 'Phone',
@@ -53,12 +52,17 @@ export class Employee extends React.Component{
         label: 'Salary',
         field: 'salary',
       },
+      {
+        label: 'Boss',
+        field: 'boss',
+      },
     ];
 
     this.toggleEdit = this.toggleEdit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.onDepartmentChange = this.onDepartmentChange.bind(this);
     this.onJobChange = this.onJobChange.bind(this);
+    this.onBossChange = this.onBossChange.bind(this);
     this.terminateUser = this.terminateUser.bind(this);
   }
 
@@ -74,19 +78,28 @@ export class Employee extends React.Component{
   }
 
   componentDidMount() {
-    this.editButton = ReactDOM.findDOMNode(this.refs.editButton);
-
     listDepartments()
     .then(response => {
       this.setState({ departments: response.data });
     });
 
-    const jobs = JobList.map((job, index) => { return {
+    listEmployees()
+    .then(response => {
+      let bosses = response.data.map((boss) => {
+        const name = boss.firstName + " " + boss.lastName;
+        const id = boss.id;
+        return { id, name }
+        });
+        bosses.sort((a, b) => a.id - b.id);
+        bosses = bosses.filter(i => i.id != this.state.user.id);
+      this.setState({ bosses: bosses });
+    });
+
+    const jobs = JobList.map(job => { return {
       label: job.OccupationalTitle,
       value: job
     }});
     this.setState({ jobs: jobs });
-
     this.updateUser();
   }
 
@@ -102,10 +115,15 @@ export class Employee extends React.Component{
     });
   }
 
+  onBossChange(value) {
+    this.setState({
+      currentBoss: value
+    });
+  }
+
   getSalary() {
     let user = this.state.user
-    // Uncomment line below for working example
-    // user.jobTitle = "Computer Programmers"
+    // Check for jobTitle
     if (user.jobTitle == null) {
       return;
     }
@@ -143,13 +161,20 @@ export class Employee extends React.Component{
       getUser(this.props.params['employeeId'])
       .then(data => {
         let user = data.data;
+        let boss = user.boss;
+        boss.name = boss.firstName + " " + boss.lastName;
         this.setState({
           user: user,
           employees: user.workers,
           currentDepartment: user.department,
           currentJob: {label: user.jobTitle},
+          currentBoss: boss,
         });
         this.getSalary();
+        canEditEmployee(user.id)
+        .then(data => {
+          this.setState({canEditUser: data.data})
+        });
       });
     }
   }
@@ -159,11 +184,16 @@ export class Employee extends React.Component{
       .then(console.log('user terminated'));
   }
 
+  refresh(){ 
+    window.location.reload(); 
+  }
+
   toggleEdit() {
     if (!this.state.disabled) {
       let newUser = this.state.user;
       newUser.department = this.state.currentDepartment;
       newUser.jobTitle = this.state.currentJob.label;
+      newUser.boss.id = this.state.currentBoss.id;
       editEmployee(newUser)
       .then(response => console.log(response));
     }
@@ -172,28 +202,30 @@ export class Employee extends React.Component{
       buttonLabel: !this.state.disabled ? "Edit": "Save" // update it here
     });
   }
+  
 
   render(){
     return (
         <div className="wrapProfile" >
           <div>
-            <div>
-                <img className="photoStyle" src={require('./profile.png')} />
-            </div>
             <div className="headerStyle" >
               {this.state.user.firstName + "'s Personal Information" }
-              <button className="trmButton" onClick={this.terminateUser}>Terminate</button>
-              <button className="editButton" onClick = {this.toggleEdit}>
+              <button hidden={!this.state.canEditUser} id="editButton" className="editButton" onClick = {this.toggleEdit}>
                 {this.state.buttonLabel}
               </button>
+              <button hidden={!this.state.canEditUser | this.state.buttonLabel == "Edit"} type="reset" value="Reset" id="cancelButton" className="cancelButton" onClick={this.refresh}>Cancel</button>
             </div>
             <div className="infoCard" >
               {this.personalFields.map(field => { return(
               <div className="infoStyle" >
                 <label className="label" > {field.label} </label>
-                <input className="inputField" type="text" name={field.field} value={this.state.user[field.field]} disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/>
+                <input className="inputField" type="text" name={field.field} value={this.state.user[field.field]}  disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/>
               </div>
               )})}
+              <div className="infoStyle" >
+                <label className="label" > Email </label>
+                <div className="salaryEST" >{this.state.user.email}</div>
+              </div>
             </div>
             <div className="alignMe" >
               <div className="headerStyle" >
@@ -203,7 +235,7 @@ export class Employee extends React.Component{
                 <div className="infoStyle" >
                   <label className="label" > Job Title </label>
                   <Select className="selectField"
-                    placeholder = "Assistant Professor"
+                    placeholder = {this.state.currentJob}
                     options={this.state.jobs}
                     onChange={this.onJobChange}
                     value={this.state.currentJob}
@@ -224,12 +256,24 @@ export class Employee extends React.Component{
                     />
                 </div>
                 <div className="infoStyle" >
+                  <label className="label" > Boss </label>
+                  <Select className="selectField"
+                    options={this.state.bosses}
+                    onChange={this.onBossChange}
+                    value={this.state.currentBoss}
+                    valueKey="id"
+                    labelKey="name"
+                    disabled={(this.state.disabled)? "disabled" : ""}
+                    />
+                </div>
+                <div className="infoStyle" hidden={!this.state.canEditUser} >
                   <label className="label" > Salary </label>
                   <input className="inputField" type="text" name="salary" value={this.state.user.salary} placeholder="$1,000,000.00" disabled={(this.state.disabled)? "disabled" : ""} onChange={this.handleChange}/>
                 </div>
                 <div className="infoStyle" >
-                  <label className="label" > Salary Estimate </label>
-                  <input className="inputField" type="text" name="salary_estimate" value={this.state.salary_estimate} placeholder="$1,000,000.00" disabled />
+                  <label className="label" > Salary Estimate</label>
+                  <div className="salaryEST" >{this.state.salary_estimate}</div>
+                  
                 </div>
                 <a href="https://www.its.ny.gov">Powered by <img className="nyIMG"  src="https://data.ny.gov/api/assets/24867D9C-004D-4A57-80CA-6757C009D140"></img></a>
               </div>
@@ -252,7 +296,12 @@ export class Employee extends React.Component{
                 </div>
               )})}
             </div>
+
           </div>
+          <div className="alignMe" >
+          <button hidden={!this.state.canEditUser | this.state.buttonLabel == "Edit"} id="trmButton" className="trmButton" onClick={this.terminateUser}>Terminate User</button>
+          </div>
+
         </div>
     );
   }

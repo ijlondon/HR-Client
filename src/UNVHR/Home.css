@@ -15,7 +15,7 @@ html, body {
 
 .findCard{
   display: block;
-  width: 500px;
+  width: auto;
   padding: 15px;
   text-align: center;
   background-color: #f0eeec;
@@ -26,7 +26,7 @@ html, body {
 
 .droplistStyle{
   margin: auto;
-  width: 350px;
+  width: 50%;
   text-align: Left;
   font-size: 16px;
   margin-top: 25px;
@@ -66,3 +66,9 @@ html, body {
   cursor: pointer;
 }
 
+.searchButton:disabled{
+  background-color: gray;
+  color: white !important;
+  text-decoration: none;
+  cursor: not-allowed;
+}
